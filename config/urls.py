@@ -17,8 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
+from accounts import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/password/change/', views.CustomPasswordChangeView.as_view(), name='custom_account_change_password'),
+    path('accounts/password/set/', views.CustomPasswordSetView.as_view(), name='custom_account_set_password'),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

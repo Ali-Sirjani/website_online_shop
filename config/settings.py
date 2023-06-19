@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    # app local
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -157,8 +160,8 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-ACCOUNT_SIGNUP_REDIRECT_URL = 'home'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/home/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/username/set/'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/username/set/'
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
