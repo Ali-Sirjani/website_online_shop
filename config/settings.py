@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from environ import Env
+from django.contrib.messages import constants as messages
 
 # Initialize environ
 env = Env()
@@ -36,7 +37,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,10 +52,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'crispy_forms',
     'crispy_bootstrap5',
+    'ckeditor',
 
     # app local
     'accounts',
     'general',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # context products
+                'products.context_processors.products',
             ],
         },
     },
@@ -142,6 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
+STATIC_ROOT = (str(BASE_DIR.joinpath('staticfiles')))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -196,3 +201,8 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 # config crispy-bootstrap
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# tags message
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

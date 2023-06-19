@@ -1,0 +1,133 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'Products' %}{% endblock title %}
+
+
+{% block content %}
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper container-fluid">
+        <div class="shop-page-wrapper shop-fullwidth">
+            <div class="container">
+                <div class="row mb--50">
+                    <div class="col-12">
+                        <div class="shop-toolbar">
+                            <div class="container row align-items-center">
+                                <div class="col-lg-12 mb-md--50 mb-xs--10">
+                                    <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
+                                        <p class="product-pages">{% trans 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% trans 'of' %} {{ page_obj.paginator.count }}</p>
+                                        <hr>
+                                    <a id="btnGroupDrop2" type="button" class="sticky-top"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mm-text">{% trans 'sort' %}</span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                        {% for name, num in sort_dict.items %}
+                                            <a class="dropdown-item text-right"
+                                               href="?sort={{ num }}"><h4
+                                                    class="mm-text">{{ name }}</h4></a>
+                                        {% endfor %}
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid shop-products">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content" id="product-tab-content">
+                            <div class="tab-pane fade show active" id="nav-all">
+                                <div class="row xxl-block-grid-6 grid-space-20">
+                                    {% for product in products %}
+                                        <div class="col-xl-3 col-md-4 col-sm-6 mb--50">
+                                            <div class="ShoppingYar-product">
+                                                <div class="product-inner">
+                                                    <figure class="product-image">
+                                                        <a href="#">
+                                                            <img src="{% static 'img/banner/banner-19.jpg' %}" alt="Products">
+                                                        </a>
+                                                        <div class="ShoppingYar-product-action">
+                                                            <div class="product-action d-flex">
+                                                                {% if product in liked %}
+                                                                    <a href="{% url 'products:favorite' product.pk %}"
+                                                                       class="action-btn">
+                                                                        <img src="{% static 'img/hearts.png' %}" alt="">
+                                                                    </a>
+                                                                {% else %}
+                                                                    <a href="{% url 'products:favorite' product.pk %}"
+                                                                       class="action-btn">
+                                                                        <i class="flaticon flaticon-like"></i>
+                                                                    </a>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        {% if product.discount %}
+                                                            <span class="product-badge">{% trans 'special discount' %}</span>
+                                                        {% endif %}
+                                                    </figure>
+                                                    <div class="product-info">
+                                                        <h3 class="product-title h6 mb--15">
+                                                            <a href="#">{{ product.title }}</a>
+                                                        </h3>
+                                                        <div class="product-price-wrapper mb--30">
+                                                            {% if product.discount %}
+                                                                <span class="money text-success">{% trans '$' %} {{ product.discount_price }}</span>
+                                                                <span class="money-separator">-</span>
+                                                                <span class="old-price text-danger">
+                                                                    <span class="money text-danger">{% trans '$' %} {{ product.price }}</span>
+                                                                </span>
+                                                            {% else %}
+                                                                <span class="money text-success">{% trans '$' %} {{ product.price }}</span>
+                                                            {% endif %}
+                                                        </div>
+                                                        <a href="#" class="btn btn-small btn-bg-sand btn-color-dark px-3">{% trans 'Add to cart' %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="pagination-wrap mt--35 mt-md--25 pb-5">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}" class="next page-number"><i
+                                            class="fa fa-angle-double-right"></i></a>
+                                    </li>
+                                    <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}"
+                                           class="page-number"> {{ page_obj.previous_page_number }} </a></li>
+                                {% else %}
+                                    <li><a href="#" class="next page-number"><i
+                                            class="fa fa-angle-double-right"></i></a></li>
+                                {% endif %}
+                                <li><span class="current page-number"> {{ page_obj.number }} </span></li>
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}"
+                                           class="page-number">{{ page_obj.next_page_number }}</a></li>
+                                    <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}" class="prev page-number"><i
+                                            class="fa fa-angle-double-left"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li><a href="#" class="prev page-number"><i class="fa fa-angle-double-left"></i></a>
+                                    </li>
+
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+
+{% endblock content %}
+
