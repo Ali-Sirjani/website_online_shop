@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-12 18:23+0330\n"
+"PO-Revision-Date: 2023-06-12 18:56+0330\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: .\forms.py:26 .\forms.py:27
+msgid "You must fill email or phone"
+msgstr "شما باید ایمیل یا تلفن را پر کنید"
+
+#: .\models.py:7
+msgid "full name"
+msgstr "نام و نام خانوادگی"
+
+#: .\models.py:8
+msgid "phone"
+msgstr "شماره تماس"
+
+#: .\models.py:9
+msgid "email"
+msgstr "ایمیل"
+
+#: .\models.py:11
+msgid "answer"
+msgstr "جواب"
+
+#: .\models.py:13
+msgid "datetime created"
+msgstr "تاریخ ساخت"
+
+#: .\models.py:14
+msgid "datetime modified"
+msgstr "تاریخ تغییر"
+
+#: .\templates\general\contact_us.html:6
+msgid "Contact With Us"
+msgstr "تماس با ما"
+
+#: .\templates\general\contact_us.html:16
+msgid "Contact us"
+msgstr "تماس با ما"
+
+#: .\templates\general\contact_us.html:30
+msgid "Tell us your message"
+msgstr "پیام خود را به ما بگویید"
+
+#: .\templates\general\contact_us.html:37
+msgid "Send"
+msgstr "ارسال"
+
+#: .\templates\general\home.html:5
+msgid "Home"
+msgstr "خانه"
+
+#: .\views.py:18
+msgid "We will soon answer your message"
+msgstr "به زودی به پیام شما پاسخ خواهیم داد"

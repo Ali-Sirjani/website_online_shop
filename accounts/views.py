@@ -1,17 +1,17 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.db.utils import IntegrityError
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
 from allauth.account.views import PasswordChangeView, PasswordSetView
-from django.views import generic
 
-from .models import Profile
-from .forms import SetUsernameForm, ProfileForm
 from cart.models import Order
+from .forms import SetUsernameForm, ProfileForm
+from .models import Profile
 from products.models import Product
 
 

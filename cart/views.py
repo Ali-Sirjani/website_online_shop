@@ -1,14 +1,14 @@
-from django.shortcuts import get_object_or_404, render, redirect, reverse
-from django.views import generic
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse, Http404
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
-
+from django.views import generic
 import json
 
-from .cart import Cart
 from .models import Order, OrderItem
 from products.models import Product
+from .cart import Cart
 from . import utils
 
 
@@ -165,4 +165,59 @@ class OrderDetailView(generic.ListView):
                 raise Http404('there is no order')
         return order
 
+    # def process_order(request):
+#     order = False
+
+    # if request.user.is_authenticated:
+    #     if form_order.is_valid():
+    #         form_order = form_order.save(commit=False)
+    #         form_order.customer = customer
+    #         # for test total
+    #         order, created = Order.objects.get_or_create(customer=customer, completed=False)
+    #         order.transaction = transaction_id
+    #         total = None
+    #         try:
+    #             total = int(form_order.cleaned_data['total'])
+    #         except ValueError:
+    #             messages.error(request, _('You change the data of checkout form!'))
+    #
+    #         if total == order.get_cart_total:
+    #             # save total price
+    #             form_order.order_price = total
+    #             # save product price
+    #             for item in order.act_items():
+    #                 item.item_price = item.save_price()
+    #
+    #             form_order.save()
+
+    # else:
+    #     customer = None
+    #     if form_order.is_valid():
+    #         form_order.save(commit=False)
+    #         request.session['email'] = form_order.cleaned_data['email']
+    #         request.session.modified = True
+    #         order, created = Order.objects.get_or_create(email=form_order.cleaned_data['email'], completed=False)
+    #         cart = Cart(request)
+    #         for item in cart:
+    #             OrderItem.objects.get_or_create(
+    #                 product=item['product'].pk,
+    #                 order=order.pk,
+    #                 quantity=item['quantity'],
+    #                 item_price=item['product'].price,
+    #             )
+    #         order.transaction = transaction_id
+    #         total = None
+    #         try:
+    #             total = int(form_order.cleaned_data['total'])
+    #         except ValueError:
+    #             messages.error(request, _('You change the data of checkout form!'))
+    #
+    #         if total == order.get_cart_total:
+    #             # save total price
+    #             order.order_price = total
+    #             # save product price
+    #             for item in order.act_items():
+    #                 item.item_price = item.save_price()
+    #
+    #             form_order.save()
 

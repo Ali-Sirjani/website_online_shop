@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-12 19:48+0330\n"
+"PO-Revision-Date: 2023-06-12 19:48+0330\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: .\models.py:27
+msgid "User"
+msgstr "کاربر"
+
+#: .\models.py:28
+msgid "Location"
+msgstr "مکان"
+
+#: .\models.py:29
+msgid "First name"
+msgstr "نام"
+
+#: .\models.py:30
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: .\templates\accounts\profile.html:9
+#: .\templates\accounts\profile_edit.html:6
+msgid "Profile"
+msgstr "پروفایل"
+
+#: .\templates\accounts\profile.html:18
+msgid "User profile"
+msgstr "پروفایل کاربر"
+
+#: .\templates\accounts\profile.html:36
+msgid "Counter"
+msgstr "پیشخوان"
+
+#: .\templates\accounts\profile.html:38
+msgid "Order history"
+msgstr "تاریخچه سفارش ها"
+
+#: .\templates\accounts\profile.html:40
+msgid "Favorites"
+msgstr "مورد علاقه"
+
+#: .\templates\accounts\profile.html:42
+msgid "Profile detail"
+msgstr "جزئیات پروفایل"
+
+#: .\templates\accounts\profile.html:45
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: .\templates\accounts\profile.html:48
+msgid "Set password"
+msgstr "قراردادن رمز عبور"
+
+#: .\templates\accounts\profile.html:50
+msgid "Log out"
+msgstr "خروج"
+
+#: .\templates\accounts\profile.html:58
+msgid "No order has been registered yet!"
+msgstr "هنوز سفارشی ثبت نشده است!"
+
+#: .\templates\accounts\profile.html:60
+msgid "Go to the store"
+msgstr "رفتن به فروشگاه"
+
+#: .\templates\accounts\profile.html:66
+msgid "Order Number"
+msgstr "شماره سفارش"
+
+#: .\templates\accounts\profile.html:67
+msgid "Date"
+msgstr "تاریخ"
+
+#: .\templates\accounts\profile.html:68
+msgid "Status"
+msgstr "وضعیت"
+
+#: .\templates\accounts\profile.html:69
+msgid "Total"
+msgstr "مبلغ"
+
+#: .\templates\accounts\profile.html:70 .\templates\accounts\profile.html:102
+msgid "Operation"
+msgstr "عملیات"
+
+#: .\templates\accounts\profile.html:80
+msgid "$"
+msgstr "تومان"
+
+#: .\templates\accounts\profile.html:80
+msgid "for"
+msgstr "برای"
+
+#: .\templates\accounts\profile.html:81
+msgid "item"
+msgstr "مورد"
+
+#: .\templates\accounts\profile.html:84 .\templates\accounts\profile.html:116
+msgid "Visit"
+msgstr " بازدید"
+
+#: .\templates\accounts\profile.html:98
+msgid "Number"
+msgstr "شماره"
+
+#: .\templates\accounts\profile.html:99
+msgid "Product Name"
+msgstr "نام محصول"
+
+#: .\templates\accounts\profile.html:100
+msgid "Product Photo"
+msgstr "عکس محصول"
+
+#: .\templates\accounts\profile.html:101
+msgid "Date of interest"
+msgstr "تاریخ مورد علاقه"
+
+#: .\templates\accounts\profile.html:125
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: .\templates\accounts\profile.html:127
+msgid "You didn't set username. Click on"
+msgstr "شما نام کاربری را تنظیم نکردید. بر روی "
+
+#: .\templates\accounts\profile.html:128
+msgid "set username"
+msgstr "نام کاربری را تنظیم کنید"
+
+#: .\templates\accounts\profile.html:129
+msgid "to redirect. But pay attention You can set your username for one time!"
+msgstr ""
+" کلیک کنید برای تغییر صفحه. اما توجه کنید شما می توانید نام کاربری خود را "
+"برای یک بار تنظیم کنید!"
+
+#: .\templates\accounts\profile.html:139
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: .\templates\accounts\profile_edit.html:19
+msgid "Change"
+msgstr "تغییر دادن"
+
+#: .\templates\accounts\set_username.html:6
+msgid "Set username"
+msgstr "نام کاربری را تنظیم کنید"
+
+#: .\templates\accounts\set_username.html:15
+msgid "You can set your username one time!"
+msgstr "شما می توانید نام کاربری خود را یک بار تنظیم کنید!"
+
+#: .\templates\accounts\set_username.html:33
+msgid "Set"
+msgstr "تنظیم"
+
+#: .\views.py:47
+msgid "You changed your username"
+msgstr "شما نام کاربری خود را تغییر دادید"
+
+#~ msgid "Show"
+#~ msgstr "نمایش"

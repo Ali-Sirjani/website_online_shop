@@ -29,11 +29,16 @@
 
 </head>
 
-<body>
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if LANGUAGE_CODE == 'en' %}
+    <body>
+{% elif LANGUAGE_CODE == 'fa' %}
+    <body dir='rtl'>
+{% endif %}
 
 <!-- Main Wrapper Start -->
 <div class="wrapper">
-
     <!-- Header Start -->
     <header class="header">
         <div class="header-inner fixed-header">
@@ -70,8 +75,8 @@
                                     </a>
                                     </li>
                                     <li class="mainmenu__item">
-                                        <a href="contact-us.html" class="mainmenu__link">
-                                            <span class="mm-text">تماس با ما</span>
+                                        <a href="{% url 'general:contact_us' %}" class="mainmenu__link">
+                                            <span class="mm-text">{% trans 'Contant with us' %}</span>
                                         </a>
                                     </li>
 
@@ -88,34 +93,13 @@
                                             {% endfor %}
                                         </div>
                                     </li>
-
                                 </ul>
                             </div>
                         </nav>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-sm-7 col-12 p-0">
                         <ul class="header-toolbar">
-                            <li class="header-toolbar__item">
-                                <a href="wishlist.html" class="header-toolbar__btn mx-4">
-                                    <i class="flaticon flaticon-like"></i>
-                                </a>
-                            </li>
-                            {% if request.resolver_match.url_name != 'cart_page' %}
-                                <li class="header-toolbar__item mini-cart-item">
-                                    <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
-                                        <i class="flaticon flaticon-shopping-cart"></i>
-                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li class="header-toolbar__item mini-cart-item">
-                                    <a href="#" class="header-toolbar__btn mini-cart-btn">
-                                        <i class="flaticon flaticon-shopping-cart"></i>
-                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="header-toolbar__item user-info">
+                        <li class="header-toolbar__item user-info">
                                 <a href="{% url 'accounts:profile' %}" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>
                                 </a>
@@ -142,6 +126,26 @@
                                 </ul>
                             </li>
                             <li class="header-toolbar__item">
+                                <a href="wishlist.html" class="header-toolbar__btn mx-4">
+                                    <i class="flaticon flaticon-like"></i>
+                                </a>
+                            </li>
+                            {% if request.resolver_match.url_name != 'cart_page' %}
+                                <li class="header-toolbar__item mini-cart-item">
+                                    <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
+                                        <i class="flaticon flaticon-shopping-cart"></i>
+                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="header-toolbar__item mini-cart-item">
+                                    <a href="#" class="header-toolbar__btn mini-cart-btn">
+                                        <i class="flaticon flaticon-shopping-cart"></i>
+                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
+                                    </a>
+                                </li>
+                            {% endif %}
+                             <li class="header-toolbar__item">
                                 <a href="#searchForm" class="header-toolbar__btn toolbar-btn">
                                     <i class="flaticon flaticon-search"></i>
                                 </a>
@@ -172,7 +176,7 @@
     {% block content %}
     {% endblock content %}
 
-   <!-- Footer Start-->
+    <!-- Footer Start-->
     <footer class="footer">
         <div class="footer-top bg-color ptb--50" data-bg-color="#f6f6f6">
             <div class="container">

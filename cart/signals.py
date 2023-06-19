@@ -2,6 +2,9 @@ from django.contrib.auth.signals import user_logged_in
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
+import requests
+import json
+
 from .cart import Cart
 from .models import Order, OrderItem
 

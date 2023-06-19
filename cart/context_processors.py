@@ -12,3 +12,4 @@ def cart(request):
     }
 
     return context
+

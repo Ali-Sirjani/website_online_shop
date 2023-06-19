@@ -108,7 +108,7 @@
                         {% if items %}
                             <div class="row no-gutters border-top pt--20 mt--20">
                                 <div class="col-sm-6 text-sm-right">
-                                    <a href="" type="submit" class="cart-form__btn update-cart" data-product="" data-action="delete_cart">{% trans 'Empty the shopping cart' %}</a>
+                                    <a href="{% url 'cart:update_item' %}" type="submit" class="cart-form__btn update-cart" data-product="" data-action="delete_cart">{% trans 'Empty the shopping cart' %}</a>
                                 </div>
                             </div>
                             </div>

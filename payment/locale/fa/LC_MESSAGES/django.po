@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-12 19:57+0330\n"
+"PO-Revision-Date: 2023-06-13 21:54+0330\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: .\templates\payment\again.html:5
+msgid "Done"
+msgstr "انجام شده"
+
+#: .\templates\payment\again.html:12
+msgid "Payment Confirmation: Unauthorized Usage Detected."
+msgstr "تأیید پرداخت: استفاده غیرمجاز شناسایی شد."
+
+#: .\templates\payment\again.html:15
+msgid ""
+"\n"
+"                    Your payment was successful, but it appears that you are attempting to use the same payment again.\n"
+"                    Please note that the payment has already been processed and cannot be used for another transaction.\n"
+"                    If you have any questions or concerns, please contact our customer support for assistance.\n"
+"                "
+msgstr ""
+"\n"
+"پرداخت شما با موفقیت انجام شد، اما به نظر می‌رسد که سعی می‌کنید دوباره از همان پرداخت استفاده کنید.\n"
+"لطفاً توجه داشته باشید که پرداخت قبلاً پردازش شده است و نمی توان از آن برای تراکنش دیگری استفاده کرد.\n"
+"اگر سوال یا ابهامی دارید، لطفاً برای راهنمایی با پشتیبانی مشتری ما تماس بگیرید."
+
+#: .\templates\payment\again.html:23
+msgid "Your order has been successfully processed."
+msgstr "سفارش شما با موفقیت پردازش شد."
+
+#: .\templates\payment\again.html:25 .\templates\payment\success.html:29
+msgid "Continue Shopping"
+msgstr "به خرید کردن ادامه دهید"
+
+#: .\templates\payment\fail.html:5
+msgid "Fail"
+msgstr "ناموفق"
+
+#: .\templates\payment\fail.html:12
+msgid "Payment Failed"
+msgstr "پرداخت ناموفق"
+
+#: .\templates\payment\fail.html:15
+msgid ""
+"\n"
+"                We apologize for the inconvenience, but it seems that there was an issue with processing your payment.\n"
+"                <br>Please ensure that the payment information you provided is accurate and up to date.\n"
+"                "
+msgstr ""
+"\n"
+"بابت مشکل پیش آمده پوزش می طلبیم، اما به نظر می رسد مشکلی در پردازش پرداخت شما وجود داشته است.\n"
+"<br>لطفاً مطمئن شوید که اطلاعات پرداختی که ارائه کرده‌اید دقیق و به‌روز باشد."
+
+#: .\templates\payment\fail.html:24
+msgid "Try Agian"
+msgstr "دوباره امتحان کنید"
+
+#: .\templates\payment\success.html:5
+msgid "Success"
+msgstr "موفق"
+
+#: .\templates\payment\success.html:12
+msgid "Payment Successful"
+msgstr "پرداخت با موفقیت انجام شد"
+
+#: .\templates\payment\success.html:15
+msgid ""
+"\n"
+"                Thank you for shopping with us! <br>We appreciate your purchase and look forward to\n"
+"                buying you again in the future.\n"
+"                "
+msgstr ""
+"\n"
+"بابت خرید از ما ممنونیم! <br>ما از خرید شما قدردانی می کنیم و مشتاقانه منتظر خرید دوباره شما در آینده هستیم"
+
+#: .\templates\payment\success.html:23
+msgid ""
+"\n"
+"                Your order has been successfully processed. We will notify you once your items are\n"
+"                shipped.\n"
+"                "
+msgstr ""
+"\n"
+"سفارش شما با موفقیت پردازش شد. به محض اینکه اقلام شما آماده شدند به شما اطلاع خواهیم داد."
+
+#: .\views.py:189
+msgid "please try again"
+msgstr "لطفا دوباره تلاش کنید"
+
+#: .\views.py:194
+msgid "Your cart is empty!"
+msgstr "سبد خرید شما خالی است!"
+
+#: .\zarinpal.py:10
+msgid "Validation error"
+msgstr "خطای اعتبار سنجی"
+
+#: .\zarinpal.py:13
+msgid "Terminal is not valid, please check merchant_id or ip address."
+msgstr "ترمینال معتبر نیست، لطفا merchant_id یا آدرس IP را بررسی کنید."
+
+#: .\zarinpal.py:16
+msgid "Terminal is not active, please contact our support team."
+msgstr "ترمینال فعال نیست، لطفا با تیم پشتیبانی ما تماس بگیرید."
+
+#: .\zarinpal.py:19
+msgid "To many attempts, please try again later."
+msgstr "برای بسیاری از تلاش‌ها، لطفاً بعداً دوباره امتحان کنید."
+
+#: .\zarinpal.py:22
+msgid "Terminal user is suspend : (please contact our support team)."
+msgstr ""
+"کاربر ترمینال به حالت تعلیق درآمده است: (لطفاً با تیم پشتیبانی ما تماس "
+"بگیرید)."
+
+#: .\zarinpal.py:25 .\zarinpal.py:28
+msgid "Terminal user level is not valid : ( please contact our support team)."
+msgstr "سطح کاربر پایانه معتبر نیست: (لطفاً با تیم پشتیبانی ما تماس بگیرید)."
+
+#: .\zarinpal.py:31
+msgid "Terminal do not allow to accept floating wages."
+msgstr "ترمینال اجازه قبول دستمزد شناور را نمی دهد."
+
+#: .\zarinpal.py:34
+msgid ""
+"Terminal do not allow to accept wages, please add default bank account in "
+"panel."
+msgstr ""
+"ترمینال اجازه قبول دستمزد را نمی دهد، لطفاً حساب بانکی پیش فرض را در پانل "
+"اضافه کنید."
+
+#: .\zarinpal.py:37
+msgid ""
+"Wages is not valid, Total wages(floating) has been overload max amount."
+msgstr ""
+"دستمزدها معتبر نیست، کل دستمزدها (شناور) حداکثر مقدار اضافه بار بوده است."
+
+#: .\zarinpal.py:40
+msgid "Wages floating is not valid."
+msgstr "دستمزد شناور معتبر نیست."
+
+#: .\zarinpal.py:43
+msgid "Wages is not valid, Total wages(fixed) has been overload max amount."
+msgstr ""
+"دستمزدها معتبر نیست، کل دستمزدها (ثابت) حداکثر مقدار اضافه بار بوده است."
+
+#: .\zarinpal.py:46
+msgid ""
+"Wages is not valid, Total wages(floating) has been reached the limit in max "
+"parts."
+msgstr ""
+"دستمزدها معتبر نیست، مجموع دستمزدها (شناور) در بخش حداکثر به حد مجاز رسیده "
+"است."
+
+#: .\zarinpal.py:49
+msgid "Invalid extra params, expire_in is not valid."
+msgstr "پارامترهای اضافی نامعتبر، expire_in معتبر نیست."
+
+#: .\zarinpal.py:52
+msgid "Session is not valid, amounts values is not the same."
+msgstr "جلسه معتبر نیست، مقادیر مقادیر یکسان نیست."
+
+#: .\zarinpal.py:55
+msgid "Session is not valid, session is not active paid try."
+msgstr "جلسه معتبر نیست، جلسه فعال نیست سعی کنید پولی."
+
+#: .\zarinpal.py:58
+msgid "Oops!!, please contact our support team"
+msgstr "اوه!!، لطفا با تیم پشتیبانی ما تماس بگیرید"
+
+#: .\zarinpal.py:61
+msgid "Session is not this merchant_id session"
+msgstr "Session این جلسه merchant_id نیست"
+
+#: .\zarinpal.py:64
+msgid "Invalid authority."
+msgstr "مرجع نامعتبر"
+
+#: .\zarinpal.py:67
+msgid "Verified"
+msgstr "تایید شده است"

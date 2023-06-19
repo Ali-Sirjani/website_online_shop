@@ -39,3 +39,4 @@ class ProductCommentForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     q = forms.CharField()
+

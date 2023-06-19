@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.db import models
-from django.forms import NumberInput, Textarea
+from django.forms import Textarea, NumberInput
 
+from jalali_date.admin import ModelAdminJalaliMixin
+from modeltranslation.admin import TranslationAdmin
 
-from .models import Product, Category, ProductComment
+from .models import Product, ProductComment, Category
 from .forms import ProductFormAdmin
 
 
@@ -18,8 +20,13 @@ class ProductCommentTabu(admin.TabularInline):
     }
 
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ('title', 'price', 'datetime_created', 'datetime_modified', 'active')
     ordering = ('-datetime_modified', )
     form = ProductFormAdmin
@@ -27,9 +34,3 @@ class ProductAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.PositiveIntegerField: {'widget': NumberInput()}
     }
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
-

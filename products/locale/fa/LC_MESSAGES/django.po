@@ -1,0 +1,283 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-13 16:25+0330\n"
+"PO-Revision-Date: 2023-06-13 16:26+0330\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: .\forms.py:26
+msgid "You must fill out discounts price because you active discount"
+msgstr "شما باید قیمت تخفیف را پر کنید زیرا تخفیف فعال دارید"
+
+#: .\forms.py:29
+msgid "The equal of discount price must be less than from price"
+msgstr "معادل قیمت تخفیف باید کمتر از قیمت باشد"
+
+#: .\models.py:10
+msgid "name"
+msgstr "نام"
+
+#: .\models.py:11 .\models.py:37
+msgid "slug change"
+msgstr "تغییر اسلاگ"
+
+#: .\models.py:11 .\models.py:38
+msgid "If you want change the slug by name"
+msgstr "اگر می خواهید اسلاگ بر اساس نام تغییر دهید"
+
+#: .\models.py:12 .\models.py:39
+msgid "slug"
+msgstr "اسلاگ"
+
+#: .\models.py:13 .\models.py:40
+msgid "If field be empty it's automatic change by name "
+msgstr "اگر فیلد خالی باشد، آن به صورت خودکار براساس نام تغییر می کند"
+
+#: .\models.py:25
+msgid "title"
+msgstr "عنوان"
+
+#: .\models.py:26
+msgid "description"
+msgstr "متن"
+
+#: .\models.py:27
+msgid "short description"
+msgstr "توضیح کوتاه"
+
+#: .\models.py:28
+msgid "cover"
+msgstr "کاور"
+
+#: .\models.py:31
+msgid "digital"
+msgstr "دیجیتالی"
+
+#: .\models.py:32
+msgid "price"
+msgstr "قیمت"
+
+#: .\models.py:33
+msgid "discount"
+msgstr "تخفیف"
+
+#: .\models.py:34
+msgid "discount price"
+msgstr "قیمت تخفیف"
+
+#: .\models.py:35
+msgid "discount timer"
+msgstr "تایمر تخفیف"
+
+#: .\models.py:36
+msgid "active"
+msgstr "فعال"
+
+#: .\models.py:42 .\models.py:86
+msgid "datetime created"
+msgstr "تاریخ ساخت"
+
+#: .\models.py:43 .\models.py:87
+msgid "datetime modified"
+msgstr "تاریخ تغییر"
+
+#: .\models.py:59
+msgid "user"
+msgstr "کاربر"
+
+#: .\models.py:61 .\models.py:77
+msgid "product"
+msgstr "محصول"
+
+#: .\models.py:62
+msgid "datetime like"
+msgstr "تاریخ لایک"
+
+#: .\models.py:70
+msgid "Too Bad"
+msgstr "خیلی بد"
+
+#: .\models.py:71
+msgid "Bad"
+msgstr "بد"
+
+#: .\models.py:72
+msgid "Normal"
+msgstr "عادی"
+
+#: .\models.py:73
+msgid "Good"
+msgstr "خوب"
+
+#: .\models.py:74
+msgid "Great"
+msgstr "عالی"
+
+#: .\models.py:79
+msgid "author"
+msgstr "نویسنده"
+
+#: .\models.py:80
+msgid "text"
+msgstr "متن"
+
+#: .\models.py:81
+msgid "star"
+msgstr "ستاره"
+
+#: .\models.py:82
+msgid "edited"
+msgstr "ویرایش شده"
+
+#: .\models.py:84
+msgid "confirmation"
+msgstr "تاییدیه"
+
+#: .\templates\products\category.html:6
+#: .\templates\products\products_list.html:7
+msgid "Products"
+msgstr "محصولات"
+
+#: .\templates\products\category.html:21
+#: .\templates\products\products_list.html:22
+#: .\templates\products\search.html:22
+msgid "Showing"
+msgstr "در حال نمایش"
+
+#: .\templates\products\category.html:21
+#: .\templates\products\products_list.html:22
+#: .\templates\products\search.html:22
+msgid "of"
+msgstr "از"
+
+#: .\templates\products\category.html:25
+#: .\templates\products\products_list.html:26
+#: .\templates\products\search.html:26
+msgid "sort"
+msgstr "مرتب سازی"
+
+#: .\templates\products\category.html:71
+#: .\templates\products\products_list.html:72
+#: .\templates\products\search.html:75
+msgid "special discount"
+msgstr "تخفیف ویژه"
+
+#: .\templates\products\category.html:80 .\templates\products\category.html:83
+#: .\templates\products\category.html:86
+#: .\templates\products\product_detail.html:46
+#: .\templates\products\product_detail.html:48
+#: .\templates\products\product_detail.html:50
+#: .\templates\products\products_list.html:81
+#: .\templates\products\products_list.html:84
+#: .\templates\products\products_list.html:87
+#: .\templates\products\search.html:84 .\templates\products\search.html:87
+#: .\templates\products\search.html:90
+msgid "$"
+msgstr "تومان"
+
+#: .\templates\products\category.html:90
+#: .\templates\products\product_detail.html:64
+#: .\templates\products\products_list.html:91
+#: .\templates\products\search.html:94
+msgid "Add to cart"
+msgstr "اضافه کردن به سبد"
+
+#: .\templates\products\product_detail.html:9
+msgid "Product"
+msgstr "محصول"
+
+#: .\templates\products\product_detail.html:19
+msgid "Product detail"
+msgstr "جزئیات محصول"
+
+#: .\templates\products\product_detail.html:88
+msgid "Product Description"
+msgstr "متن محصول"
+
+#: .\templates\products\product_detail.html:92
+msgid "Attributes"
+msgstr "ویژگی ها"
+
+#: .\templates\products\product_detail.html:96
+msgid "Comments"
+msgstr "نظرات"
+
+#: .\templates\products\product_detail.html:138
+msgid "Comment For"
+msgstr "نظر برای"
+
+#: .\templates\products\product_detail.html:181
+msgid "Write your opinion"
+msgstr "دیدگاه خود را بنویسید"
+
+#: .\templates\products\product_detail.html:189
+msgid "send"
+msgstr "ارسال"
+
+#: .\templates\products\product_detail.html:199
+#, python-format
+msgid ""
+"\n"
+"                                                            For comment You should first <a href=\"%(url_log)s\">log in</a>\n"
+"                                                        "
+msgstr ""
+"\n"
+"برای نظر دادن ابتدا باید <a href=\"%(url_log)s\">وارد</a> شوید"
+
+#: .\templates\products\search.html:6
+#: .\templates\products\search_q_none.html:6
+msgid "Search"
+msgstr "جستوجو"
+
+#: .\templates\products\search.html:103
+#, python-format
+msgid "There is no product with title %(q)s "
+msgstr "هی محصولی با این عنوان %(q)s وجود ندارد"
+
+#: .\templates\products\search_q_none.html:13
+msgid ""
+"Find the perfect product! Enter a keyword in the search box above to start "
+"shopping."
+msgstr ""
+"برای جستجوی محصولات، نام موردنظر خود را وارد کنید یا از دسته‌بندی‌ها استفاده"
+" کنید. در صورت نیاز، به ما پیام دهید. خرید آنلاین راحت و سریع را تجربه کنید!"
+
+#: .\views.py:119
+msgid "Unlike post."
+msgstr "آن لایک پست"
+
+#: .\views.py:124
+msgid "Like post."
+msgstr "لایک پست"
+
+#: .\views.py:142 .\views.py:165
+msgid "There is no product with this address"
+msgstr "هیچ محصولی با این آدرس وجود ندارد"
+
+#: .\views.py:183
+msgid "You comment after confirmation will show in comments."
+msgstr "نظر شما پس از تایید در نظرات نشان داده می شود."
+
+#: .\views.py:187
+msgid "Your comment have problem please try again!"
+msgstr "نظر شما مشکل دارد لطفا دوباره امتحان کنید!"
+
+#~ msgid "For comment You should first"
+#~ msgstr "برای نظر دادن ابتدا باید "
+
+#~ msgid "log in"
+#~ msgstr "وارد شوید"

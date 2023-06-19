@@ -15,8 +15,15 @@ def create_slug_product(sender, instance, *args, **kwargs):
 
 @receiver(pre_save, sender=Category)
 def create_slug_en_category(sender, instance, *args, **kwargs):
-    if not instance.slug or instance.slug_change:
-        instance.slug = create_unique_slug(instance, instance.name)
+    if not instance.slug_en or instance.slug_change:
+        instance.slug_en = create_unique_slug(instance, instance.name_en)
+        instance.slug_change = False
+
+
+@receiver(pre_save, sender=Category)
+def create_slug_fa_category(sender, instance, *args, **kwargs):
+    if not instance.slug_fa or instance.slug_change:
+        instance.slug_fa = create_unique_slug(instance, instance.name_fa)
         instance.slug_change = False
 
 
@@ -31,7 +38,7 @@ def create_unique_slug(instance, create_by, slug_primitive=None):
 
     if obj.exists():
         instance.slug_change = False
-        slug = f'{slug}-{random.choice("12345")}-'
+        slug = f'{slug}-{random.choice("12345")}'
         return create_unique_slug(instance, create_by, slug)
 
     return slug
