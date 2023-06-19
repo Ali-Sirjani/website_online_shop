@@ -56,8 +56,10 @@
                                                min="-30">
                                     </div>
                                 </div>
-                                <button href="#" type="button"
-                                        class="btn btn-small btn-bg-red btn-color-white btn-hover-2">
+                                <button href="{% url 'cart:update_item' %}" type="button"
+                                        class="btn btn-small btn-bg-red btn-color-white btn-hover-2  update-cart"
+                                        data-product="{{ product.pk }}"
+                                        onclick="addToCart()">
                                     {% trans 'Add to cart' %}
                                 </button>
                             </div>
@@ -208,6 +210,31 @@
         </div>
     </div>
     <!-- Main Content Wrapper End -->
+
+    <script>
+        function addToCart() {
+            var qtyInput = document.getElementById('qty');
+            var action;
+            if (qtyInput.value === ''){
+                qtyInput.value = 0;
+            }
+            var intQtyInput = parseInt(qtyInput.value)
+            if (intQtyInput > 0){
+                action = 'add';
+                console.log('this is add')
+            }
+            else if (intQtyInput < 0){
+                action = 'remove';
+            }
+            else{
+                action = '';
+            }
+            var qtyValue = qtyInput.value;
+            var addToCartButton = document.querySelector('.update-cart');
+            addToCartButton.setAttribute('data-quantity', qtyValue);
+            addToCartButton.setAttribute('data-action', action);
+        }
+    </script>
 
 {% endblock content %}
 

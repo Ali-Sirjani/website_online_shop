@@ -1,0 +1,160 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+{% load trans_fa %}
+
+{% block title %}{% trans 'Cart' %}{% endblock title %}
+
+{% block content %}
+
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        {% if user.is_authenticated %}
+                            <h1 class="page-title">{% trans 'Cart' %}</h1>
+                        {% else %}
+                            {% url 'cart:report_order_anony' as report_url %}
+                            {% blocktrans %}
+                            <h1 style="font-size: 2em;">If you want to see your orders without registration,
+                                <a href="{{ report_url }}">click on the link</a></h1>
+                            {% endblocktrans %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner ptb--80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-md--50">
+                        <form class="cart-form" action="#">
+                            <div class="row no-gutters">
+                                <div class="col-12">
+                                    <div class="table-content table-responsive">
+                                        <table class="table text-center">
+                                            <thead>
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <th>{% trans 'Product Photo' %}</th>
+                                                <th class="text-left">{% trans 'Product Name' %}</th>
+                                                <th>{% trans 'Price' %}</th>
+                                                <th>{% trans 'Discount Price' %}</th>
+                                                <th>{% trans 'Quantity' %}</th>
+                                                <th>{% trans 'Total' %}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for item in items %}
+                                                <tr>
+                                                    <td class="product-remove text-left"><a class="update-cart" data-action="delete_item" data-product="{{ item.product.pk }}" href=""><i
+                                                            class="flaticon flaticon-cross"></i></a></td>
+                                                    <td class="product-thumbnail text-left ">
+                                                        <img class="img-thumbnail" src="{{ item.product.cover.url }}"
+                                                             alt="Product Thumnail">
+                                                    </td>
+                                                    <td class="product-name wide-column">
+                                                        <h3>
+                                                            <a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a>
+                                                        </h3>
+                                                    </td>
+                                                    <td class="product-price">
+                                                        <span class="product-price-wrapper">
+                                                                <span class="money">{% trans '$' %} {{ item.product.price|num_fa }}</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="product-price">
+                                                        <span class="product-price-wrapper">
+                                                            {% if item.product.discount %}
+                                                                <span class="money">{% trans '$' %} {{ item.product.discount_price|num_fa }}</span>
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td class="product-quantity">
+                                                        <div class="">
+                                                            <input type="number" class="quantity-input update-cart"
+                                                                   name="qty"
+                                                                   id="qty-1" value="{{ item.quantity }}" min="1" >
+                                                            <div class="dec qtybutton update-cart"
+                                                                 data-product="{{ item.product.pk }}"
+                                                                 data-action="remove">-
+                                                            </div>
+                                                            <div class="inc qtybutton update-cart"
+                                                                 data-product="{{ item.product.pk }}" data-action="add">
+                                                                +
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-total-price">
+                                                            <span class="product-price-wrapper">
+                                                                <span class="money">{% trans '$' %} {{ item.get_total|num_fa }}</span>
+                                                            </span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% if items %}
+                            <div class="row no-gutters border-top pt--20 mt--20">
+                                <div class="col-sm-6 text-sm-right">
+                                    <a href="" type="submit" class="cart-form__btn update-cart" data-product="" data-action="delete_cart">{% trans 'Empty the shopping cart' %}</a>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="cart-collaterals">
+                                    <div class="cart-totals">
+                                        <div class="cart-calculator">
+                                            <div class="cart-calculator__item">
+                                                <div class="cart-calculator__item--head">
+                                                    <span>{% trans 'total' %}</span>
+                                                </div>
+                                                <div class="cart-calculator__item--value">
+                                                    <span>{% trans '$' %} {{ order.get_cart_total_no_discount|num_fa }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="cart-calculator__item">
+                                                <div class="cart-calculator__item--head">
+                                                    <span>{% trans 'Profit' %}</span>
+                                                </div>
+                                                <div class="cart-calculator__item--value">
+                                                    <span>{% trans '$' %} {{ order.get_cart_total_profit|num_fa }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="cart-calculator__item order-total">
+                                                <div class="cart-calculator__item--head">
+                                                    <span>{% trans 'sum total' %}</span>
+                                                </div>
+                                                <div class="cart-calculator__item--value">
+                                                <span class="product-price-wrapper">
+                                                    <span class="money">{% trans '$' %} {{ order.get_cart_total|num_fa }}</span>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href=""
+                                       class="btn btn-fullwidth btn-bg-red btn-color-white btn-hover-2">
+                                        {% trans 'Checkout' %}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+{% endblock content %}

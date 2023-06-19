@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'general',
     'products',
     'trans_persian',
+    'cart',
 ]
 
 MIDDLEWARE = [

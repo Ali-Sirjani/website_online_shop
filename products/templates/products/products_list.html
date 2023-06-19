@@ -87,7 +87,7 @@
                                                                 <span class="money text-success">{% trans '$' %} {{ product.price|num_fa }}</span>
                                                             {% endif %}
                                                         </div>
-                                                        <a href="#" class="btn btn-small btn-bg-sand btn-color-dark px-3">{% trans 'Add to cart' %}</a>
+                                                        <a href="" data-product="{{ product.pk }}" data-action="add" class="btn btn-small btn-bg-sand btn-color-dark px-3 update-cart">{% trans 'Add to cart' %}</a>
                                                     </div>
                                                 </div>
                                             </div>
