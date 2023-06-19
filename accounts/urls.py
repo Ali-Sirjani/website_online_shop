@@ -6,4 +6,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('username/set/', views.set_username_view, name='set_username'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
 ]

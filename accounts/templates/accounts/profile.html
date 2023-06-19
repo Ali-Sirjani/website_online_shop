@@ -1,0 +1,156 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% load trans_fa %}
+
+
+{% block title %}{% trans 'Profile' %}{% endblock title %}
+
+{% block content %}
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans 'User profile' %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner ptb--80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="user-dashboard-tab flex-column flex-md-row">
+                            <div class="user-dashboard-tab__head nav flex-md-column" role="tablist"
+                                 aria-orientation="vertical">
+                                <a class="nav-link active" data-toggle="pill" role="tab" href="#dashboard"
+                                   aria-controls="dashboard" aria-selected="true">{% trans 'Counter' %}</a>
+                                <a class="nav-link" data-toggle="pill" role="tab" href="#orders" aria-controls="orders"
+                                   aria-selected="true">{% trans 'Order history' %}</a>
+                                <a class="nav-link" data-toggle="pill" role="tab" href="#addresses"
+                                   aria-controls="addresses" aria-selected="true">{% trans 'Favorites' %}</a>
+                                <a class="nav-link" data-toggle="pill" role="tab" href="#accountdetails"
+                                   aria-controls="accountdetails" aria-selected="true">{% trans 'Profile detail' %}</a>
+                                {% if user.has_usable_password %}
+                                    <a class="nav-link" href="{% url 'account_change_password' %}"
+                                    >{% trans 'Change password' %}</a>
+                                {% else %}
+                                    <a class="nav-link" href="{% url 'account_set_password' %}"
+                                    >{% trans 'Set password' %}</a>
+                                {% endif %}
+                                <a class="nav-link" href="{% url 'account_logout' %}">{% trans 'Log out' %}</a>
+                            </div>
+                            <div class="user-dashboard-tab__content tab-content p-4">
+                                <div class="tab-pane fade show active" id="dashboard">
+                                </div>
+                                <div class="tab-pane fade" id="orders">
+                                    {% if orders_completed|length == 0 %}
+                                        <p>
+                                            <i class=""></i>{% trans 'No order has been registered yet!' %}
+                                        </p>
+                                        <a href="{% url 'products:products_list' %}">{% trans 'Go to the store' %}</a>
+                                    {% else %}
+                                        <div class="table-content table-responsive">
+                                            <table class="table text-center">
+                                                <thead>
+                                                <tr>
+                                                    <th>{% trans 'Order Number' %}</th>
+                                                    <th>{% trans 'Date' %}</th>
+                                                    <th>{% trans 'Status' %}</th>
+                                                    <th>{% trans 'Total' %}</th>
+                                                    <th>{% trans 'Operation' %}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for order in orders_completed %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td class="wide-column">{{ order.format_time_ordered }}</td>
+                                                        <td>{{ order.avg_track_items }}</td>
+                                                        <td class="wide-column">
+                                                            {% trans '$' %}{{ order.get_cart_total_pass|num_fa }} {% trans 'for' %} {{ order.get_cart_items_pass|num_fa }} {% trans 'item' %}
+                                                        </td>
+                                                        <td><a href="{% url 'cart:order_detail' order.pk %}"
+                                                               class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans 'Visit' %}</a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="tab-pane fade" id="addresses">
+                                    <div class="table-content table-responsive">
+                                        <table class="table text-center">
+                                            <thead>
+                                            <tr>
+                                                <th>{% trans 'Number' %}</th>
+                                                <th>{% trans 'Product Name' %}</th>
+                                                <th>{% trans 'Product Photo' %}</th>
+                                                <th>{% trans 'Date of interest' %}</th>
+                                                <th>{% trans 'Operation' %}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for product in products %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ product.title }}</td>
+                                                    <td class="wide-column"><img class="img-thumbnail"
+                                                                                 style="width: 100px; height: auto;"
+                                                                                 src="{{ product.cover.url }}" alt="">
+                                                    </td>
+                                                    <td class="wide-column">{{ product.time_like }}</td>
+                                                    <td><a href="{{ product.get_absolute_url }}"
+                                                           class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans 'Visit' %}</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="accountdetails">
+                                    <p>{% trans 'Username:' %} <strong>{{ user }}</strong></p>
+                                    {% if user.set_username.first_time %}
+                                        <p>
+                                            {% trans "You didn't set username. Click on" %}
+                                            <a class="forgot-pass" href="{% url 'accounts:set_username' %}"><strong>{% trans 'set username' %}</strong></a>
+                                            {% trans 'to redirect. But pay attention You can set your username for one time!' %}
+                                        </p>
+                                    {% endif %}
+                                    <form action="" class="form form--account" method="post"
+                                          enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form__group">
+                                                    <input type="submit" value="{% trans 'Save changes' %}"
+                                                           class="btn btn-style-1 btn-submit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+
+{% endblock content %}

@@ -116,14 +116,14 @@
                                 </li>
                             {% endif %}
                             <li class="header-toolbar__item user-info">
-                                <a href="#" class="header-toolbar__btn">
+                                <a href="{% url 'accounts:profile' %}" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>
                                 </a>
                                 <ul class="user-info-menu">
                                     {% if user.is_authenticated %}
                                         <li>
                                             <a class="text-right"
-                                               href="#">{% trans 'Profile' %}</a>
+                                               href="{% url 'accounts:profile' %}">{% trans 'Profile' %}</a>
                                         </li>
                                         <li>
                                             <a class="text-right"
