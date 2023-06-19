@@ -5,6 +5,16 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, verbose_name=_('name'))
+    slug_change = models.BooleanField(verbose_name=_('slug change'), help_text=_('If you want change the slug by name'))
+    slug = models.SlugField(allow_unicode=True, blank=True, max_length=300, verbose_name=_('slug'),
+                            help_text=_('If field be empty it\'s automatic change by name '))
+
+    def __str__(self):
+        return self.name
+
+
 class ActiveProductsManager(models.Manager):
     def get_queryset(self):
         return super(ActiveProductsManager, self).get_queryset().filter(active=True)
@@ -16,6 +26,7 @@ class Product(models.Model):
     short_description = models.CharField(max_length=300, null=True, blank=True, verbose_name=_('short description'))
     cover = models.ImageField(upload_to='product_covers/', verbose_name=_('cover'))
     favorite = models.ManyToManyField(get_user_model(), related_name='favorites', default=None, blank=True)
+    category = models.ManyToManyField(Category, related_name='categories', default=None, blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True, verbose_name=_('digital'))
     price = models.PositiveIntegerField(verbose_name=_('price'))
     discount = models.BooleanField(default=False, verbose_name=_('discount'))

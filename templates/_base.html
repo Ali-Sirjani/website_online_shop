@@ -50,26 +50,44 @@
                             </div>
                             <div class="mainmenu-nav d-none d-lg-block w-100 pr-3">
                                 <ul class="mainmenu d-lg-flex jusity-content-end jusity-content-lg-start pt-4">
-                                    <li class="mainmenu__item menu-item-has-children active">
-                                        <a href="index.html" class="mainmenu__link">
-                                            <span class="mm-text">خانه</span>
-                                        </a>
+                                    {% if request.resolver_match.url_name == 'home' %}
+                                        <li class="mainmenu__item menu-item-has-children active">
+                                            {% else %}
+                                        <li class="mainmenu__item menu-item-has-children">
+                                    {% endif %}
+                                    <a href="{% url 'general:home' %}" class="mainmenu__link">
+                                        <span class="mm-text">{% trans 'Home' %}</span>
+                                    </a>
                                     </li>
-                                    <li class="mainmenu__item menu-item-has-children">
-                                        <a href="Blog.html" class="mainmenu__link">
-                                            <span class="mm-text">وبلاگ</span>
-                                        </a>
-                                    </li>
-                                    <li class="mainmenu__item menu-item-has-children">
-                                        <a href="#" class="mainmenu__link">
-                                            <span class="mm-text">صفحات</span>
-                                        </a>
+                                    {% if request.resolver_match.url_name == 'products_list' %}
+                                        <li class="mainmenu__item menu-item-has-children active">
+                                            {% else %}
+                                        <li class="mainmenu__item menu-item-has-children">
+                                    {% endif %}
+                                    <a href="{% url 'products:products_list' %}" class="mainmenu__link">
+                                        <span class="mm-text">{% trans 'Products' %}</span>
+                                    </a>
                                     </li>
                                     <li class="mainmenu__item">
                                         <a href="contact-us.html" class="mainmenu__link">
                                             <span class="mm-text">تماس با ما</span>
                                         </a>
                                     </li>
+
+                                    <li>
+                                        <a id="btnGroupDrop1" type="button" class="mainmenu__link"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="mm-text">{% trans 'Categories' %}</span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            {% for category in categories %}
+                                                <a class="dropdown-item text-right"
+                                                   href="{% url 'products:category_page' category.slug %}"><h4
+                                                        class="mm-text">{{ category.name }}</h4></a>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+
                                 </ul>
                             </div>
                         </nav>
@@ -174,15 +192,17 @@
 
         <!-- Search form Popup Start -->
         <div class="searchform__popup" id="searchForm">
-            <a href="#" class="btn-close"><i class="flaticon flaticon-cross"></i></a>
-            <div class="searchform__body">
-                <p>در باکس زیر عبارت خود را وارد کنید</p>
-                <form class="searchform">
-                    <input type="text" name="popup-search" id="popup-search" class="searchform__input" placeholder="جستجو در بین محصولات...">
-                    <button type="submit" class="searchform__submit"><i class="flaticon flaticon-magnifying-glass-icon"></i></button>
-                </form>
-            </div>
+        <a href="#" class="btn-close"><i class="flaticon flaticon-cross"></i></a>
+        <div class="searchform__body">
+            <p>{% trans 'Enter your phrase in the box below' %}</p>
+            <form class="searchform" action="{% url 'products:search_page' %}" method="get">
+                <input type="text" name="q" id="popup-search" class="searchform__input"
+                       placeholder="{% trans 'Search among products...' %}">
+                <button type="submit" class="searchform__submit"><i class="flaticon flaticon-magnifying-glass-icon"></i>
+                </button>
+            </form>
         </div>
+    </div>
         <!-- Search form Popup End -->
 
         <!-- Mini Cart Start -->

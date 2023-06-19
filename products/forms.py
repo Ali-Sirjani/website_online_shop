@@ -7,7 +7,7 @@ from .models import Product
 class ProductFormAdmin(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('title', 'description', 'short_description', 'cover',
+        fields = ('title', 'description', 'short_description', 'cover', 'category',
                   'price', 'discount', 'discount_price', 'slug_change', 'slug', 'active')
         widgets = {
             'short_description': forms.Textarea(attrs={'cols': 75, 'rows': 5})
@@ -29,3 +29,7 @@ class ProductFormAdmin(forms.ModelForm):
             self.add_error('discount_price', _('The equal of discount price must be less than from price'))
 
         return clean_data
+
+
+class SearchForm(forms.Form):
+    q = forms.CharField()

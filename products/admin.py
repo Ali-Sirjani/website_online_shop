@@ -3,7 +3,7 @@ from django.db import models
 from django.forms import NumberInput
 
 
-from .models import Product
+from .models import Product, Category
 from .forms import ProductFormAdmin
 
 
@@ -12,4 +12,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'datetime_created', 'datetime_modified', 'active')
     ordering = ('-datetime_modified', )
     form = ProductFormAdmin
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
 
