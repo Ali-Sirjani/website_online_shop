@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load trans_fa %}
 
 <!doctype html>
 <html class="no-js"><!--------Theme Shered by Codingyar.com--------->
@@ -171,7 +172,7 @@
     {% block content %}
     {% endblock content %}
 
-        <!-- Footer Start-->
+   <!-- Footer Start-->
     <footer class="footer">
         <div class="footer-top bg-color ptb--50" data-bg-color="#f6f6f6">
             <div class="container">
@@ -184,12 +185,28 @@
                         </div>
                         <div class="footer-widget mb--50 pb--1">
                             <ul class="">
-                            <li><a href="">درباره ما</a></li>
-                                <li><a href="">قوانین و مقررات</a></li>
-                                <li><a href="">تماس با ما</a></li>
+                                <li><a href="">{% trans 'About us' %}</a></li>
+                                <li><a href="">{% trans 'Terms and Conditions' %}</a></li>
+                                <li><a href="{% url 'general:contact_us' %}">{% trans 'Contact us' %}</a></li>
                             </ul>
                         </div>
-                         <div class="footer-widget">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <select name="language" id="">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+
+                                {% for language in languages %}
+                                    <li>
+                                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+                                                selected {% endif %} >{{ language.name_local }}</option>
+                                    </li>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Go">
+                        </form>
+                        <div class="footer-widget">
                             Codingyar.com © | {% trans 'all rights reserved' %}
                         </div>
                     </div>
@@ -199,8 +216,8 @@
     </footer>
     <!-- Footer End-->
 
-        <!-- Search form Popup Start -->
-        <div class="searchform__popup" id="searchForm">
+    <!-- Search form Popup Start -->
+    <div class="searchform__popup" id="searchForm">
         <a href="#" class="btn-close"><i class="flaticon flaticon-cross"></i></a>
         <div class="searchform__body">
             <p>{% trans 'Enter your phrase in the box below' %}</p>
@@ -212,88 +229,60 @@
             </form>
         </div>
     </div>
-        <!-- Search form Popup End -->
+    <!-- Search form Popup End -->
 
+    {% if request.resolver_match.url_name != 'cart_page' %}
         <!-- Mini Cart Start -->
         <aside class="mini-cart" id="miniCart">
             <div class="mini-cart-wrapper">
                 <a href="" class="btn-close"><i class="flaticon flaticon-cross"></i></a>
                 <div class="mini-cart-inner">
-                    <h3 class="mini-cart__heading mb--40 mb-lg--30 text-right">سبد خرید</h3>
+                    <h3 class="mini-cart__heading mb--40 mb-lg--30 text-right">{% trans 'Cart' %}</h3>
                     <div class="mini-cart__content">
                         <ul class="mini-cart__list text-right">
-                            <li class="mini-cart__product d-flex justify-content-between">
-                                <div class="mini-cart__product__image">
-                                    <a href="#">
-                                        <img src="{% static 'img/products/prod-1-100x100.jpg' %}" alt="products">
-                                    </a>
-                                </div>
-                                <div class="mini-cart__product__content pt-2">
-                                    <span class="mini-cart__product__title d-flex flex-row justify-content-between">
-                                        <a href="#"> محصول سماره یک </a>
-                                        <a href="#" class="">
-                                            &#10060;
+                            <div style="height: 240px">
+                            {% for item in cart.act_items %}
+                                <li class="mini-cart__product d-flex justify-content-between">
+                                    <div class="mini-cart__product__image">
+                                        <a href="{{ item.product.get_absolute_url }}">
+                                            <img src="{{ item.product.cover.url }}" alt="products">
                                         </a>
-                                    </span>
-                                    <span class="mini-cart__product__quantity">
-                                        <span>۴۹,۰۰۰ تومان</span> &#215; <span>۱</span>
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="mini-cart__product d-flex justify-content-between">
-                                <div class="mini-cart__product__image">
-                                    <a href="#">
-                                        <img src="{% static 'img/products/prod-1-100x100.jpg' %}" alt="products">
-                                    </a>
-                                </div>
-                                <div class="mini-cart__product__content pt-2">
-                                    <span class="mini-cart__product__title d-flex flex-row justify-content-between">
-                                        <a href="#"> محصول سماره یک </a>
-                                        <a href="#" class="">
-                                            &#10060;
-                                        </a>
-                                    </span>
-                                    <span class="mini-cart__product__quantity">
-                                        <span>۴۹,۰۰۰ تومان</span> &#215; <span>۱</span>
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="mini-cart__product d-flex justify-content-between">
-                                <div class="mini-cart__product__image">
-                                    <a href="#">
-                                        <img src="{% static 'img/products/prod-1-100x100.jpg' %}" alt="products">
-                                    </a>
-                                </div>
-                                <div class="mini-cart__product__content pt-2">
-                                    <span class="mini-cart__product__title d-flex flex-row justify-content-between">
-                                        <a href="#"> محصول سماره یک </a>
-                                        <a href="#" class="">
-                                            &#10060;
-                                        </a>
-                                    </span>
-                                    <span class="mini-cart__product__quantity">
-                                        <span>۴۹,۰۰۰ تومان</span> &#215; <span>۱</span>
-                                    </span>
-                                </div>
-                            </li>
+                                    </div>
+                                    <div class="mini-cart__product__content pt-2">
+                                        <span class="mini-cart__product__title d-flex flex-row justify-content-between">
+                                            <a href="{{ item.product.get_absolute_url }}"> {{ item.product.title }} </a>
+                                            <a href="" class="update-cart" data-product="{{ item.product.pk }}" data-action="delete_item">
+                                                &#10060;
+                                            </a>
+                                        </span>
+                                        <span class="mini-cart__product__quantity">
+                                            <span>{% trans '$' %} {{ item.get_total|num_fa }}</span> &#215; <span>{{ item.quantity|num_fa }}</span>
+                                        </span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </div>
                         </ul>
                         <div class="mini-cart__total">
-                            <span>جمع کل</span>
-                            <span class="ammount">۱۴۸,۰۰۰ تومان</span>
+                            <span>{% trans 'Total' %}</span>
+                            <span class="ammount">{% trans '$' %} {{ cart.get_cart_total|num_fa }}</span>
                         </div>
                         <div class="mini-cart__buttons">
-                            <a href="{% url 'cart:cart_page' %}" class="btn btn-fullwidth btn-bg-sand mb--20">مشاهده سبد خرید</a>
-                            <a href="{% url 'cart:checkout' %}" class="btn btn-fullwidth btn-bg-sand">پرداخت</a>
+                            <a href="{% url 'cart:cart_page' %}"
+                               class="btn btn-fullwidth btn-bg-sand mb--20">{% trans 'View shopping cart' %}</a>
+                            <a href="{% url 'cart:checkout' %}"
+                               class="btn btn-fullwidth btn-bg-sand">{% trans 'Payment' %}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </aside>
         <!-- Mini Cart End -->
+    {% endif %}
 
-        <!-- Global Overlay Start -->
-        <div class="ShoppingYar-global-overlay"></div>
-        <!-- Global Overlay End -->
+    <!-- Global Overlay Start -->
+    <div class="ShoppingYar-global-overlay"></div>
+    <!-- Global Overlay End -->
 
 </div>
 <!-- Main Wrapper End -->

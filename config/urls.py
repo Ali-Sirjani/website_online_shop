@@ -21,7 +21,9 @@ from django.conf import settings
 from accounts import views
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
+    path('rosetta/', include('rosetta.urls')),
     path('accounts/password/change/', views.CustomPasswordChangeView.as_view(), name='custom_account_change_password'),
     path('accounts/password/set/', views.CustomPasswordSetView.as_view(), name='custom_account_set_password'),
     path('accounts/', include('accounts.urls')),
