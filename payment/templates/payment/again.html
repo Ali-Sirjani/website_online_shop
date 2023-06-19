@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Done' %}{% endblock title %}
+
+{% block content %}
+
+    <div class="container success-bottom">
+        <div class="text-center">
+            <h1 class="display-4 success-heading">
+                <span class="red-text">{% trans 'Payment Confirmation: Unauthorized Usage Detected.' %}</span>
+            </h1>
+            <p class="dark-pink">
+                {% blocktrans %}
+                    Your payment was successful, but it appears that you are attempting to use the same payment again.
+                    Please note that the payment has already been processed and cannot be used for another transaction.
+                    If you have any questions or concerns, please contact our customer support for assistance.
+                {% endblocktrans %}
+            </p>
+            <p class="dark-pink">{% now "SHORT_DATETIME_FORMAT" %}</p>
+            <hr class="my-4">
+            <p class="dark-pink">{% trans 'Your order has been successfully processed.' %}</p>
+            <p class="mt--30">
+                <a href="{% url 'products:products_list' %}" class="btn btn-danger"><span style="font-weight: bold;">{% trans 'Continue Shopping' %}</span></a>
+            </p>
+        </div>
+    </div>
+
+
+    <style>
+        .red-text {
+            color: #ff0000;
+        }
+
+        .dark-pink {
+            font-weight: bold;
+            color: #FF7F50;
+        }
+
+        .success-heading {
+            font-weight: bold;
+            margin-top: 70px;
+            margin-bottom: 20px;
+        }
+
+        .success-bottom {
+            margin-bottom: 70px;
+        }
+    </style>
+
+{% endblock content %}

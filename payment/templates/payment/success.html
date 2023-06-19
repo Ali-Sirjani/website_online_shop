@@ -1,0 +1,53 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Success' %}{% endblock title %}
+
+{% block content %}
+
+    <div class="container success-bottom">
+        <div class="text-center">
+            <h1 class="display-4 success-heading">
+                <span class="green-text">{% trans 'Payment Successful' %}</span>
+            </h1>
+            <p class="dark-pink">
+                {% blocktrans %}
+                Thank you for shopping with us! <br>We appreciate your purchase and look forward to
+                buying you again in the future.
+                {% endblocktrans %}
+            </p>
+            <p class="dark-pink">{% now "SHORT_DATETIME_FORMAT" %}</p>
+            <hr class="my-4">
+            <p class="dark-pink">
+                {% blocktrans %}
+                Your order has been successfully processed. We will notify you once your items are
+                shipped.
+                {% endblocktrans %}
+            </p>
+            <p class="mt--30">
+                <a href="{% url 'products:products_list' %}" class="btn btn-danger"><span style="font-weight: bold;">{% trans 'Continue Shopping' %}</span></a>
+            </p>
+        </div>
+    </div>
+
+
+    <style>
+        .green-text {
+            color: #02780a;
+        }
+        .dark-pink {
+            font-weight: bold;
+            color: #0000FF;
+        }
+        .success-heading {
+            font-weight: bold;
+            margin-top: 70px;
+            margin-bottom: 20px;
+        }
+         .success-bottom {
+            margin-bottom: 70px;
+        }
+    </style>
+
+{% endblock content %}
