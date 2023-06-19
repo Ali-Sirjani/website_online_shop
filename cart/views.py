@@ -1,5 +1,6 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.views import generic
+from django.http import JsonResponse, Http404
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
@@ -125,4 +126,43 @@ def checkout_view(request):
     }
 
     return render(request, 'cart/checkout.html', context)
+
+
+class OrderReportAnonymous(generic.ListView):
+    context_object_name = 'orders_completed'
+    template_name = 'cart/order_anonymous.html'
+
+    def get_queryset(self):
+        try:
+            orders_pk_list = self.request.session.get('orders_pk_list')
+            orders = Order.objects.filter(id__in=orders_pk_list, completed=True)
+            print('this is track_order: ', orders.last().avg_track_items)
+            return orders
+        except TypeError:
+            orders_pk_list = []
+            return orders_pk_list
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return reverse('accounts:profile')
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class OrderDetailView(generic.ListView):
+    template_name = 'cart/order_detail.html'
+    context_object_name = 'order_finished'
+
+    def get_queryset(self):
+        order_pk = self.kwargs['pk']
+        if self.request.user.is_authenticated:
+            order = get_object_or_404(Order, pk=order_pk, customer=self.request.user, completed=True)
+        else:
+            orders_pk_list = self.request.session.get('orders_pk_list')
+            if orders_pk_list and order_pk in orders_pk_list:
+                order = get_object_or_404(Order, pk=self.kwargs['pk'], customer=None, completed=True)
+            else:
+                raise Http404('there is no order')
+        return order
+
 

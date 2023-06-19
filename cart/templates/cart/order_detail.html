@@ -1,0 +1,310 @@
+{% load i18n %}
+{% load trans_fa %}
+{% load static %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>{% trans 'Order Detail' %}</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='#' rel='stylesheet'>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'img/icon.png' %}">
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body {
+            min-height: 100vh;
+            background-size: cover;
+            font-family: 'Lato', sans-serif;
+            color: rgba(11, 10, 10, 0.67);
+            background: linear-gradient(140deg, #fff, 50%, #ffffff);
+
+        }
+
+        .container-fluid {
+            margin-top: 200px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 7px;
+
+        }
+
+        .small {
+            letter-spacing: 0.5px !important;
+        }
+
+        .card-1 {
+            box-shadow: 2px 2px 10px 0px rgb(194, 8, 15);
+        }
+
+        hr {
+            background-color: rgba(248, 248, 248, 0.667);
+        }
+
+
+        .bold {
+            font-weight: 500;
+        }
+
+        .change-color {
+            color: #c2080f !important;
+        }
+
+        .card-2 {
+            box-shadow: 1px 1px 3px 0px rgb(112, 115, 139);
+            margin-top: 40px;
+        }
+
+        .fa-circle.active {
+            font-size: 8px;
+            color: #c2080f;
+        }
+
+        .fa-circle {
+            font-size: 8px;
+            color: #aaa;
+        }
+
+        .rounded {
+            border-radius: 2.25rem !important;
+        }
+
+
+        .progress-bar {
+            background-color: #ee0710 !important;
+        }
+
+
+        .progress {
+            height: 5px !important;
+            margin-bottom: 0;
+        }
+
+        .invoice {
+            position: relative;
+            top: -70px;
+        }
+
+        .Glasses {
+            position: relative;
+            top: -12px !important;
+        }
+
+        .card-footer {
+            background-color: rgb(194, 8, 15);
+            color: #fff;
+        }
+
+        .text-bottom {
+            margin-top: 55px;
+        }
+
+        h2 {
+            color: rgb(255, 255, 255);
+            letter-spacing: 2px !important;
+        }
+
+        .display-3 {
+            font-weight: 500 !important;
+        }
+
+        @media (max-width: 479px) {
+            .invoice {
+                position: relative;
+                top: 7px;
+            }
+
+            .border-line {
+                border-right: 0px solid rgb(226, 206, 226) !important;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            h2 {
+                color: rgb(194, 8, 15);
+                font-size: 17px;
+            }
+
+            .display-3 {
+                font-size: 28px;
+                font-weight: 500 !important;
+            }
+        }
+
+        .card-footer small {
+            letter-spacing: 7px !important;
+            font-size: 12px;
+        }
+
+        .border-line {
+            border-right: 1px solid rgb(226, 206, 226)
+        }
+
+        a:link {
+            color: rgba(42, 41, 41, 0.67);
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: rgba(42, 41, 41, 0.67);
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: red;
+            background-color: transparent;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body className='snippet-body'>
+
+<div class="container-fluid my-5  d-flex  justify-content-center">
+    <div class="card card-1">
+        <div class="card-header bg-white">
+            <div class="col-auto text-center  my-auto pl-0 pt-sm-4">
+                <div class="col my-auto">
+                    <h4 class="mb-20">
+                        {% blocktrans with order_finished.first_name as first_name and order_finished.last_name as last_name %}
+                            Thanks for your Order, <span class="change-color">{{ first_name }} {{ last_name }}</span>
+                        {% endblocktrans %}
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between mb-3">
+                <div class="col-auto"><h6 class="color-1 mb-0 change-color">{% trans 'Receipt' %}</h6></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {% for item in order_finished.items.all %}
+                        <div class="card card-2">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="sq align-self-center "><a
+                                            href="{{ item.product.get_absolute_url }}"><img
+                                            class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
+                                            src="{{ item.item_cover.url }}" width="135" height="135"/></a></div>
+                                    <div class="media-body my-auto text-right">
+                                        <div class="row  my-auto flex-column flex-md-row">
+                                            <div class="col my-auto"><a href="{{ item.product.get_absolute_url }}"><h6
+                                                    class="mb-0">{{ item.item_title }}</h6></a></div>
+                                            <div class="col my-auto"><h5>{% trans 'Qty' %}
+                                                : {{ item.quantity|num_fa }}</h5></div>
+                                            <div class="col my-auto"><h5 class="mb-0">
+                                                {% trans '$' %}{{ item.get_total_pass|num_fa }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-3 ">
+                                <div class="row">
+                                    <div class="col-md-3 mb-3"><small> {% trans 'Track Order' %} <span><i
+                                            class=" ml-2 fa fa-refresh"
+                                            aria-hidden="true"></i></span></small>
+                                    </div>
+                                    <div class="col mt-auto">
+                                        <div class="progress my-auto">
+                                            <div class="progress-bar progress-bar  rounded"
+                                                 style="width: {{ item.track_order }}%"
+                                                 role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="media row justify-content-between ">
+                                            <div class="col-auto text-right"><span> <small
+                                                    class="text-right mr-sm-2"></small> <i
+                                                    class="fa fa-circle active"></i> </span>
+                                            </div>
+                                            <div class="flex-col"><span> <small
+                                                    class="text-right mr-sm-2">{% trans 'Out for delivery' %}</small><i
+                                                    class="fa fa-circle active"></i></span></div>
+                                            <div class="col-auto flex-col-auto"><small
+                                                    class="text-right mr-sm-2">{% trans 'Delivered' %}</small><span> <i
+                                                    class="fa fa-circle"></i></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="col-auto"><h4 class="mb-1 text-dark"><b>{% trans 'Order Details' %}</b></h4></div>
+                        <div class="flex-sm-col text-right col"><h5 class="mb-1"><b>{% trans 'Total' %}</b></h5></div>
+                        <div class="flex-sm-col col-auto"><h5 class="mb-2">
+                            {% trans '$' %}{{ order_finished.get_cart_total_no_discount_pass|num_fa }}</h5></div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col"><h5 class="mb-1"><b>{% trans 'Profit' %}</b></h5></div>
+                        <div class="flex-sm-col col-auto"><h5 class="mb-1">
+                            {% trans '$' %}{{ order_finished.get_cart_total_profit_pass|num_fa }}</h5></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row invoice ">
+                <h6 class="text-bottom">{% trans 'Invoice Date' %} : {{ order_finished.format_time_payed }}</h6>
+            </div>
+            <div class="row invoice ">
+                <h6 class="">{% trans 'Transaction Id' %} : {{ order_finished.transaction }}</h6>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="jumbotron-fluid">
+                <div class="row justify-content-between ">
+                    <div class="col-auto my-auto "><h2 class="mb-0 font-weight-bold">{% trans 'TOTAL PAID' %}</h2></div>
+                    <div class="col-auto my-auto ml-auto"><h1
+                            class="display-5 ">{% trans '$' %} {{ order_finished.get_cart_total_pass|num_fa }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript'
+        src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+<script type='text/javascript' src='#'></script>
+<script type='text/javascript' src='#'></script>
+<script type='text/javascript' src='#'></script>
+<script type='text/javascript'></script>
+<script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+myLink.addEventListener('click', function (e) {
+    e.preventDefault();
+});</script>
+
+</body>
+</html>

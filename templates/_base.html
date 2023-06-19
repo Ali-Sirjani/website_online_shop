@@ -99,12 +99,21 @@
                                     <i class="flaticon flaticon-like"></i>
                                 </a>
                             </li>
-                            <li class="header-toolbar__item mini-cart-item">
-                                <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
-                                    <i class="flaticon flaticon-shopping-cart"></i>
-                                    <sup class="mini-cart-count">2</sup>
-                                </a>
-                            </li>
+                            {% if request.resolver_match.url_name != 'cart_page' %}
+                                <li class="header-toolbar__item mini-cart-item">
+                                    <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
+                                        <i class="flaticon flaticon-shopping-cart"></i>
+                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="header-toolbar__item mini-cart-item">
+                                    <a href="#" class="header-toolbar__btn mini-cart-btn">
+                                        <i class="flaticon flaticon-shopping-cart"></i>
+                                        <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="header-toolbar__item user-info">
                                 <a href="#" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>

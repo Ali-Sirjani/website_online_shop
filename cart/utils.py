@@ -50,7 +50,7 @@ def check_out_user_login(request):
                 form_shipping.customer = customer
                 form_shipping.order = order
                 form_shipping.save()
-                return redirect('general:home')
+                return redirect('payment:sandbox_process')
 
     items = order.act_items().order_by('-datetime_added')
 
@@ -127,7 +127,7 @@ def check_out_user_anonymous(request, cart):
                     result = save_items_and_shipping_address_user_anonymous(request, cart, order_obj, total,
                                                                             form_shipping)
                     if result:
-                        return redirect('general:home')
+                        return redirect('payment:sandbox_process')
 
         except Order.DoesNotExist:
             form_order_obj = form_order.save(commit=False)
@@ -158,6 +158,6 @@ def check_out_user_anonymous(request, cart):
 
                 result = save_items_and_shipping_address_user_anonymous(request, cart, order_obj, total, form_shipping)
                 if result:
-                    return redirect('general:home')
+                    return redirect('payment:sandbox_process')
 
     return form_order, form_shipping

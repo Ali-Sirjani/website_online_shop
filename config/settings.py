@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'products',
     'trans_persian',
     'cart',
+    'payment',
 ]
 
 MIDDLEWARE = [
