@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 
     # app local
     'accounts',
+    'general',
 ]
 
 MIDDLEWARE = [
@@ -158,8 +159,8 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'general:home'
+LOGOUT_REDIRECT_URL = 'general:home'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/username/set/'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/username/set/'
 

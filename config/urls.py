@@ -25,5 +25,5 @@ urlpatterns = [
     path('accounts/password/set/', views.CustomPasswordSetView.as_view(), name='custom_account_set_password'),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', include('general.urls')),
 ]

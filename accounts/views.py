@@ -37,7 +37,7 @@ def set_username_view(request):
 
             user_obj.set_username.first_time = False
             user_obj.set_username.save()
-            return redirect('home')
+            return redirect('general:home')
 
         else:
             form.add_error('username', _('You changed your username'))
