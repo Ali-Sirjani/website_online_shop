@@ -7,7 +7,7 @@ from .models import Product
 class ProductFormAdmin(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('title', 'description', 'short_description',
+        fields = ('title', 'description', 'short_description', 'cover',
                   'price', 'discount', 'discount_price', 'slug_change', 'slug', 'active')
         widgets = {
             'short_description': forms.Textarea(attrs={'cols': 75, 'rows': 5})

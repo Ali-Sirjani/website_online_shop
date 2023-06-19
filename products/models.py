@@ -14,6 +14,7 @@ class Product(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('title'))
     description = RichTextField(verbose_name=_('description'))
     short_description = models.CharField(max_length=300, null=True, blank=True, verbose_name=_('short description'))
+    cover = models.ImageField(upload_to='product_covers/', verbose_name=_('cover'))
     favorite = models.ManyToManyField(get_user_model(), related_name='favorites', default=None, blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True, verbose_name=_('digital'))
     price = models.PositiveIntegerField(verbose_name=_('price'))
