@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}{% trans "Signup" %}{% endblock title %}
+
+{% block content %}
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans 'Sign Up' %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner pt--75 pb--80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-sm--50">
+                        <div class="login-box">
+                            <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are
+                                about to use your {{ provider_name }} account to login to
+                                {{ site_name }}. As a final step, please complete the following
+                                form:{% endblocktrans %}</p>
+
+                            <form class="signup" id="signup_form" method="post"
+                                  action="{% url 'socialaccount_signup' %}">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <div class="d-flex align-items-center mt--20">
+                                    <div class="form__group">
+                                        <input type="submit" value="{% trans 'Sign Up' %}" class="btn-submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

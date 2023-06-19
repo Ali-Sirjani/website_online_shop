@@ -1,0 +1,74 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block title %}{% trans "Confirmation" %}{% endblock title %}
+
+
+{% block content %}
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans "Confirm E-mail Address" %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if confirmation %}
+
+        {% user_display confirmation.email_address.user as user_display %}
+        <div class="main-content-wrapper">
+            <div class="page-content-inner pt--75 pb--80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-sm--50">
+                            <div class="login-box">
+
+                                <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that
+                                    "<a href="mailto:{{ email }}">{{ email }}</a>" is an e-mail address for user
+                                    "{{ user_display }}"
+                                    .{% endblocktrans %}</p>
+
+
+                                <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                                    {% csrf_token %}
+                                    <div class="d-flex align-items-center mt--20">
+                                        <div class="form__group">
+                                            <button type="submit" class="btn-submit">{% trans 'Confirm' %}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+
+        {% url 'account_email' as email_url %}
+        <div class="main-content-wrapper">
+            <div class="page-content-inner pt--75 pb--80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-sm--50">
+                            <div class="login-box">
+
+                                <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please
+                                    <a href="{{ email_url }}">issue a new e-mail confirmation request</a>
+                                    .{% endblocktrans %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
