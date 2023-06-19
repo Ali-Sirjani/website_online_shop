@@ -87,6 +87,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # context products
                 'products.context_processors.products',
+                # context cart
+                'cart.context_processors.cart',
             ],
         },
     },

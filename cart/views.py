@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -8,6 +8,7 @@ import json
 from .cart import Cart
 from .models import Order, OrderItem
 from products.models import Product
+from . import utils
 
 
 def update_item(request):
@@ -91,3 +92,37 @@ def cart_view(request):
     }
 
     return render(request, 'cart/cart.html', context)
+
+
+def checkout_view(request):
+    # user with account
+    if request.user.is_authenticated:
+        checkout_login = utils.check_out_user_login(request)
+        try:
+            form_order, form_shipping, order, items = checkout_login
+        except ValueError:
+            return checkout_login
+
+    # user without account
+    else:
+        order = cart = Cart(request)
+        items = None
+        if cart.get_cart_items() == 0:
+            messages.info(request, _('The Your cart is empty! Pleas first add some product in your cart.'))
+            return redirect('products:products_list')
+
+        checkout_anonymous = utils.check_out_user_anonymous(request, cart)
+        try:
+            form_order, form_shipping = checkout_anonymous
+        except ValueError:
+            return checkout_anonymous
+
+    context = {
+        'order': order,
+        'items': items,
+        'form_order': form_order,
+        'form_shipping': form_shipping,
+    }
+
+    return render(request, 'cart/checkout.html', context)
+

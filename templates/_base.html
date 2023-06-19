@@ -273,8 +273,8 @@
                             <span class="ammount">۱۴۸,۰۰۰ تومان</span>
                         </div>
                         <div class="mini-cart__buttons">
-                            <a href="cart.html" class="btn btn-fullwidth btn-bg-sand mb--20">مشاهده سبد خرید</a>
-                            <a href="checkout.html" class="btn btn-fullwidth btn-bg-sand">پرداخت</a>
+                            <a href="{% url 'cart:cart_page' %}" class="btn btn-fullwidth btn-bg-sand mb--20">مشاهده سبد خرید</a>
+                            <a href="{% url 'cart:checkout' %}" class="btn btn-fullwidth btn-bg-sand">پرداخت</a>
                         </div>
                     </div>
                 </div>

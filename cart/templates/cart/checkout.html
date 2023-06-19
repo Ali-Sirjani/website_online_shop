@@ -1,0 +1,207 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+{% load trans_fa %}
+
+{% block title %}{% trans 'Checkout' %}{% endblock title %}
+
+{% block content %}
+
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans 'Order' %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner">
+            <div class="container">
+                <div class="row pt--50 pt-md--40 pt-sm--20"></div>
+                <div class="row pb--80 pb-md--60 pb-sm--40">
+                    <!-- Checkout Area Start -->
+                    <div class="col-lg-6">
+                        <div class="checkout-title mt--10">
+                            <h2>{% trans 'Order details' %}</h2>
+                        </div>
+                        <div class="checkout-form">
+                            <form class="form form--checkout" action="" method="post">
+                                {% csrf_token %}
+                                {% if form_order.errors %}
+                                    <div class="container">
+                                        {% for error in form_order.errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if form_shipping.errors %}
+                                    <div class="container">
+                                        {% for error in form_shipping.errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-row mb--20">
+                                    <div class="form__group col-md-6 mb-sm--30">
+                                        <label for="billing_first_name"
+                                               class="form__label form__label--2">{% trans 'First name' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="first_name"
+                                               class="form__input form__input--2">
+                                    </div>
+                                    <div class="form__group col-md-6">
+                                        <label for="billing_last_name"
+                                               class="form__label form__label--2">{% trans 'Last name' %}
+                                            <span
+                                                    class="required">*</span></label>
+                                        <input type="text" name="last_name"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20" id="address">
+                                    <div class="form__group col-12">
+                                        <label for="billing_state"
+                                               class="form__label form__label--2">{% trans 'state' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="state"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20" id="address">
+                                    <div class="form__group col-12">
+                                        <label for="billing_city"
+                                               class="form__label form__label--2">{% trans 'city' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="city"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20" id="address">
+                                    <div class="form__group col-12">
+                                        <label for="billing_address"
+                                               class="form__label form__label--2">{% trans 'address' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="address"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20" id="address">
+                                    <div class="form__group col-12">
+                                        <label for="billing_plate"
+                                               class="form__label form__label--2">{% trans 'plate' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="plate"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20">
+                                    <div class="form__group col-12">
+                                        <label for="billing_phone"
+                                               class="form__label form__label--2">{% trans 'Phone number' %}<span
+                                                class="required">*</span></label>
+                                        <input type="text" name="phone"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row mb--20">
+                                    <div class="form__group col-12">
+                                        <label for="billing_email"
+                                               class="form__label form__label--2">{% trans 'Email' %}</label>
+                                        <input type="email" name="email"
+                                               class="form__input form__input--2">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form__group col-12">
+                                        <label for="billing_note"
+                                               class="form__label form__label--2">{% trans 'Your note' %}</label>
+                                        <textarea class="form__input form__input--2 form__input--textarea"
+                                                  id="order_note" name="order_note"
+                                                  placeholder="{% trans 'If you have a note, enter it here. Otherwise, leave this field blank' %}"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" value="{{ order.get_cart_total }}" name="total">
+                                <div class="d-flex align-items-center mt--20">
+                                    <div class="form__group">
+                                        <input type="submit" id="pay_button" value="{% trans 'Pay' %}"
+                                               class="btn-submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 offset-xl-1 col-lg-6 mt-md--40">
+                        <div class="order-details">
+                            <div class="checkout-title mt--10">
+                                <h2>{% trans 'Your order' %}</h2>
+                            </div>
+                            <div class="table-content table-responsive mb--30">
+                                <table class="table order-table order-table-2">
+                                    <thead>
+                                    <tr>
+                                        <th>{% trans 'Product' %}</th>
+                                        <th class="text-right">{% trans 'Finall price' %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if items %}
+                                        {% for item in items %}
+                                            <tr>
+                                                <th>{{ item.product.title|truncatewords:3 }}
+                                                    <strong><span>&#10005;</span>{{ item.quantity }}</strong>
+                                                </th>
+                                                <td class="text-right">{% trans '$' %} {{ item.get_total|num_fa }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for item in order %}
+                                            <tr>
+                                                <th>{{ item.product.title|truncatewords:3 }}
+                                                    <strong><span>&#10005;</span>{{ item.quantity }}</strong>
+                                                </th>
+                                                <td class="text-right">{% trans '$' %} {{ item.get_total|num_fa }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr class="cart-subtotal">
+                                        <th>{% trans 'total' %}</th>
+                                        <td class="text-right">{% trans '$' %} {{ order.get_cart_total|num_fa }}</td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="checkout-payment">
+                                <h2 class="py-5">{% trans 'Payment method' %}</h2>
+                                <form action="#" class="payment-form">
+                                    <div class="payment-group mb--10">
+                                        <div class="payment-radio">
+                                            <input type="radio" value="bank" name="payment-method" id="bank" checked>
+                                            <label class="payment-label" for="cheque">{% trans 'Zarin Pal online portal' %}</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Checkout Area End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+{% endblock content %}
