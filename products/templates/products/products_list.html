@@ -50,7 +50,7 @@
                                             <div class="ShoppingYar-product">
                                                 <div class="product-inner">
                                                     <figure class="product-image">
-                                                        <a href="#">
+                                                        <a href="{{ product.get_absolute_url }}">
                                                             <img src="{{ product.cover.url }}" alt="Products">
                                                         </a>
                                                         <div class="ShoppingYar-product-action">
@@ -74,7 +74,7 @@
                                                     </figure>
                                                     <div class="product-info">
                                                         <h3 class="product-title h6 mb--15">
-                                                            <a href="#">{{ product.title }}</a>
+                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                                         </h3>
                                                         <div class="product-price-wrapper mb--30">
                                                             {% if product.discount %}

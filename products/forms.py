@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Product
+from .models import Product, ProductComment
 
 
 class ProductFormAdmin(forms.ModelForm):
@@ -29,6 +29,12 @@ class ProductFormAdmin(forms.ModelForm):
             self.add_error('discount_price', _('The equal of discount price must be less than from price'))
 
         return clean_data
+
+
+class ProductCommentForm(forms.ModelForm):
+    class Meta:
+        model = ProductComment
+        fields = ('text', 'star')
 
 
 class SearchForm(forms.Form):

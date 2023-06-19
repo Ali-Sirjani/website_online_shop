@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 
 from ckeditor.fields import RichTextField
@@ -44,6 +45,9 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('products:product_detail', args=[self.slug])
+
     def get_time_like(self, user):
         time = TimeLike.objects.get(product=self, user=user)
         datetime_like = time.datetime_like.strftime('%Y-%m-%d %H:%M:%S')
@@ -59,3 +63,31 @@ class TimeLike(models.Model):
 
     def __str__(self):
         return str(self.product.pk)
+
+
+class ProductComment(models.Model):
+    STAR_CHOICES = (
+        ('1', _('Too Bad')),
+        ('2', _('Bad')),
+        ('3', _('Normal')),
+        ('4', _('Good')),
+        ('5', _('Great')),
+    )
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments', verbose_name=_('product'))
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='comments',
+                               verbose_name=_('author'))
+    text = models.TextField(verbose_name=_('text'))
+    star = models.CharField(max_length=1, choices=STAR_CHOICES, verbose_name=_('star'))
+    edited = models.BooleanField(default=False, verbose_name=_('edited'))
+
+    confirmation = models.BooleanField(default=False, verbose_name=_('confirmation'))
+
+    datetime_created = models.DateTimeField(auto_now_add=True, verbose_name=_('datetime created'))
+    datetime_modified = models.DateTimeField(auto_now=True, verbose_name=_('datetime modified'))
+
+    def __str__(self):
+        return self.text
+
+    def get_absolute_url(self):
+        return reverse('products:product_detail', args=[self.product.slug])

@@ -9,4 +9,5 @@ urlpatterns = [
     path('search/', views.SearchView.as_view(), name='search_page'),
     path('favorite/<int:pk>/', views.favorite_view, name='favorite'),
     re_path(r'category/(?P<slug>[-\w]+)/', views.CategoryView.as_view(), name='category_page'),
+    re_path(r'(?P<slug>[-\w]+)/', views.ProductDetailView.as_view(), name='product_detail'),
 ]

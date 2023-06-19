@@ -1,12 +1,14 @@
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, HttpResponseRedirect, render
+from django.shortcuts import get_object_or_404, HttpResponseRedirect, render, redirect
 from django.db.models import Q
+from django.http import Http404
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 
-from .models import Product, TimeLike
-from .forms import SearchForm
+from .models import Product, TimeLike, ProductComment
+from .forms import SearchForm, ProductCommentForm
 from . import utils
 
 
@@ -117,3 +119,41 @@ class CategoryView(generic.ListView):
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
         return context
+
+
+@method_decorator(login_required, name='post')
+class ProductDetailView(generic.edit.FormMixin, generic.DetailView):
+    model = Product
+    form_class = ProductCommentForm
+    template_name = 'products/product_detail.html'
+    context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+
+        if not obj.active:
+            raise Http404(_('There is no product with this address'))
+
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = ProductComment.objects.filter(confirmation=True)
+        return context
+
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        request = self.request
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product = get_object_or_404(Product, pk=self.object.pk)
+            comment.author = request.user
+            messages.success(request, _('You comment after confirmation will show in comments.'))
+            comment.save()
+            return redirect(self.object.get_absolute_url())
+        else:
+            messages.error(request, _('Your comment have problem please try again!'))
+            return super().form_invalid(form)
+
