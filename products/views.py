@@ -138,13 +138,10 @@ class CategoryView(generic.ListView):
     def get_queryset(self):
         queryset = Product.objects.filter(Q(category__slug_en=self.kwargs['slug']) | Q(category__slug_fa=self.kwargs['slug']), active=True).distinct('id')
 
-        if queryset.exists():
-            sort_num = self.request.GET.get('sort')
-            if sort_num:
-                return utils.products_queryset(sort_num, queryset)
-            return queryset
-        else:
-            raise Http404(_('There is no product with this address'))
+        sort_num = self.request.GET.get('sort')
+        if sort_num:
+            return utils.products_queryset(sort_num, queryset)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -153,6 +150,8 @@ class CategoryView(generic.ListView):
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
+
+        context['category_name'] = self.kwargs['slug']
         return context
 
 

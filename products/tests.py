@@ -240,7 +240,7 @@ class TestProduct(TestCase):
             self.assertNotContains(response, product)
 
         # text when search nothing find
-        self.assertContains(response, f'There is no product with title {q}')
+        self.assertContains(response, f'There is no product with title <strong>{q}</strong>')
 
         response = self.client.get(f'/products/search/', {'q': 'GM606-RGB'})
         for product in products_list:

@@ -21,8 +21,8 @@ class ProductCommentTabu(admin.TabularInline):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+class CategoryAdmin(TranslationAdmin):
+    fields = ('name_en', 'name_fa', 'slug_change', 'slug_en', 'slug_fa')
 
 
 @admin.register(Product)
