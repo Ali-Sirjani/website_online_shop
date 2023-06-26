@@ -99,41 +99,44 @@
                                     {% else %}
                                         <div class="container">
                                             <div class="row justify-content-center ptb--50">
-                                                <p>{% blocktrans %}There is no product with category <strong>{{ category_name }}</strong> {% endblocktrans %}</p>
+                                                <p>{% blocktrans %}There is no product with category
+                                                    <strong>{{ category_name }}</strong> {% endblocktrans %}</p>
                                             </div>
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
-                        <nav class="pagination-wrap mt--35 mt-md--25 pb-5">
-                            <ul class="pagination">
-                                {% if page_obj.has_previous %}
-                                    <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}"
-                                           class="next page-number"><i
-                                            class="fa fa-angle-double-right"></i></a>
-                                    </li>
-                                    <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}"
-                                           class="page-number"> {{ page_obj.previous_page_number }} </a></li>
-                                {% else %}
-                                    <li><a href="#" class="next page-number"><i
-                                            class="fa fa-angle-double-right"></i></a></li>
-                                {% endif %}
-                                <li><span class="current page-number"> {{ page_obj.number }} </span></li>
-                                {% if page_obj.has_next %}
-                                    <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}"
-                                           class="page-number">{{ page_obj.next_page_number }}</a></li>
-                                    <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}"
-                                           class="prev page-number"><i
-                                            class="fa fa-angle-double-left"></i></a>
-                                    </li>
-                                {% else %}
-                                    <li><a href="#" class="prev page-number"><i class="fa fa-angle-double-left"></i></a>
-                                    </li>
+                        {% if products %}
+                            <nav class="pagination-wrap mt--35 mt-md--25 pb-5">
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}"
+                                               class="next page-number"><i
+                                                class="fa fa-angle-double-right"></i></a>
+                                        </li>
+                                        <li><a href="?page={{ page_obj.previous_page_number }}{{ sort }}"
+                                               class="page-number"> {{ page_obj.previous_page_number }} </a></li>
+                                    {% else %}
+                                        <li><a href="#" class="next page-number"><i
+                                                class="fa fa-angle-double-right"></i></a></li>
+                                    {% endif %}
+                                    <li><span class="current page-number"> {{ page_obj.number }} </span></li>
+                                    {% if page_obj.has_next %}
+                                        <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}"
+                                               class="page-number">{{ page_obj.next_page_number }}</a></li>
+                                        <li><a href="?page={{ page_obj.next_page_number }}{{ sort }}"
+                                               class="prev page-number"><i
+                                                class="fa fa-angle-double-left"></i></a>
+                                        </li>
+                                    {% else %}
+                                        <li><a href="#" class="prev page-number"><i class="fa fa-angle-double-left"></i></a>
+                                        </li>
 
-                                {% endif %}
-                            </ul>
-                        </nav>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
                     </div>
                 </div>
             </div>

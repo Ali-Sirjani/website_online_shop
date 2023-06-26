@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-16 20:00+0330\n"
-"PO-Revision-Date: 2023-06-16 20:05+0330\n"
+"PO-Revision-Date: 2023-06-21 16:44+0330\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -296,10 +296,9 @@ msgstr "پورتال آنلاین زرین پال"
 
 #: .\templates\cart\order_anonymous.html:9
 #: .\templates\cart\order_anonymous.html:18
-#, fuzzy
 #| msgid "Order Detail"
 msgid "Order Report"
-msgstr "جزئیات سفارش"
+msgstr "گزارش سفارش"
 
 #: .\templates\cart\order_anonymous.html:35
 msgid "No order has been registered yet!"
@@ -322,10 +321,9 @@ msgid "Status"
 msgstr "وضعیت"
 
 #: .\templates\cart\order_anonymous.html:47
-#, fuzzy
 #| msgid "transaction"
 msgid "Operation"
-msgstr "کد پیگیری"
+msgstr "عمل"
 
 #: .\templates\cart\order_anonymous.html:57
 msgid "for"

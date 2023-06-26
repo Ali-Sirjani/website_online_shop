@@ -60,7 +60,8 @@ class ProfileView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy('accounts:profile')
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Profile, user=self.request.user.pk)
+        profile_user, create = Profile.objects.get_or_create(user=self.request.user)
+        return profile_user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

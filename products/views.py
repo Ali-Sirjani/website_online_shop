@@ -15,12 +15,11 @@ from . import utils
 
 
 class ProductsListView(generic.ListView):
-    paginate_by = 6
     template_name = 'products/products_list.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.filter(active=True)
+        queryset = Product.objects.prefetch_related('category', 'favorite').filter(active=True)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             return utils.products_queryset(sort_num, queryset)
@@ -151,7 +150,15 @@ class CategoryView(generic.ListView):
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
 
-        context['category_name'] = self.kwargs['slug']
+        if not self.get_queryset().exists():
+            try:
+                if self.request.LANGUAGE_CODE == 'en':
+                    context['category_name'] = Category.objects.get(slug=self.kwargs['slug']).name_en
+                elif self.request.LANGUAGE_CODE == 'fa':
+                    context['category_name'] = Category.objects.get(slug=self.kwargs['slug']).name_fa
+            except Category.DoesNotExist:
+                context['category_name'] = self.kwargs['slug'].replace('-', ' ')
+
         return context
 
 

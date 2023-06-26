@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from environ import Env
+
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'babel',
     'ckeditor',
+    'rosetta',
+    'rest_framework',
 
     # app local
     'accounts',
@@ -226,3 +229,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+# config locale
+LOCALE_PATHS = (str(BASE_DIR.joinpath('templates/locale')), )
+
