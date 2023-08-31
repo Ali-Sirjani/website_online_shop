@@ -42,6 +42,9 @@ class Product(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True, verbose_name=_('datetime created'))
     datetime_modified = models.DateTimeField(auto_now=True, verbose_name=_('datetime modified'))
 
+    objects = models.Manager()
+    active_objs = ActiveProductsManager()
+
     def __str__(self):
         return self.title
 
