@@ -76,7 +76,7 @@
                                                         <td class="wide-column">{{ order.format_time_ordered }}</td>
                                                         <td>{{ order.avg_track_items }}</td>
                                                         <td class="wide-column">
-                                                            {% trans '$' %}{{ order.get_cart_total_pass|num_fa }} {% trans 'for' %} {{ order.get_cart_items_pass|num_fa }} {% trans 'item' %}
+                                                            {% trans '$' %}{{ order.get_cart_total_past|num_fa }} {% trans 'for' %} {{ order.get_cart_items_past|num_fa }} {% trans 'item' %}
                                                         </td>
                                                         <td><a href="{% url 'cart:order_detail' order.pk %}"
                                                                class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans 'Visit' %}</a>
