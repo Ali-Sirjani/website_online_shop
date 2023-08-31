@@ -11,7 +11,6 @@ class ContactUsForm(forms.ModelForm):
 
     def clean(self):
         clean_data = super().clean()
-        print('this is clean data: ', clean_data)
         try:
             email_user = clean_data['email_user']
         except KeyError:
@@ -23,8 +22,7 @@ class ContactUsForm(forms.ModelForm):
             phone = 1
 
         if not (email_user or phone):
-            self.add_error('email_user', _('You must fill email or phone'))
-            self.add_error('phone', _('You must fill email or phone'))
+            self.add_error(None, _('You must fill email or phone'))
 
         return clean_data
 
