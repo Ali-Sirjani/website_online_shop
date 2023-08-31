@@ -2,11 +2,9 @@ from django.shortcuts import Http404, get_object_or_404, redirect, render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponseRedirect
-from django.core.paginator import Paginator
 from django.db.models import Q
 
 from .models import Product, TimeLike, ProductComment, Category
@@ -17,19 +15,21 @@ from . import utils
 class ProductsListView(generic.ListView):
     template_name = 'products/products_list.html'
     context_object_name = 'products'
+    paginate_by = 3
 
     def get_queryset(self):
-        queryset = Product.objects.prefetch_related('category', 'favorite').filter(active=True)
+        queryset = Product.active_objs.prefetch_related('category', 'favorite')
         sort_num = self.request.GET.get('sort')
         if sort_num:
-            return utils.products_queryset(sort_num, queryset)
+            sort_by = utils.queryset_sort_by(sort_num)
+            queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.objects.filter(favorite=self.request.user.pk, active=True)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
@@ -50,25 +50,25 @@ class SearchView(generic.ListView):
             if form.is_valid():
                 q = form.cleaned_data['q']
                 if self.request.LANGUAGE_CODE == 'en':
-                    queryset = Product.objects.filter(Q(title__icontains=q) | Q(category__name_en__icontains=q), active=True).distinct('id')
+                    queryset = Product.active_objs.filter(
+                        Q(title__icontains=q) | Q(category__name_en__icontains=q)).distinct()
                 elif self.request.LANGUAGE_CODE == 'fa':
-                    queryset = Product.objects.filter(Q(title__icontains=q) | Q(category__name_fa__icontains=q),
-                                                      active=True).distinct('id')
+                    queryset = Product.active_objs.filter(
+                        Q(title__icontains=q) | Q(category__name_fa__icontains=q)).distinct()
 
                 self.q = q
                 sort_num = self.request.GET.get('sort')
                 if sort_num:
-                    return utils.products_queryset(sort_num, queryset)
-
-        else:
-            return render(self.request, 'products/search_q_none.html')
+                    sort_by = utils.queryset_sort_by(sort_num)
+                    queryset = queryset.order_by(sort_by)
+                    return queryset
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.objects.filter(favorite=self.request.user.pk, active=True)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
         try:
             context['q'] = self.q
         except AttributeError:
@@ -82,34 +82,6 @@ class SearchView(generic.ListView):
         if not request.GET.get('q'):
             return render(self.request, 'products/search_q_none.html')
         return super().dispatch(request, *args, **kwargs)
-
-
-# def search_view(request):
-#     products = []
-#     liked = []
-#     page_obj = None
-#
-#     request_get = request.GET
-#
-#     if 'q' in request_get:
-#         form = SearchForm(request_get)
-#         if form.is_valid():
-#             page_number = request_get.get("page", 1)
-#             q = form.cleaned_data['q']
-#             products = Product.objects.filter(title__icontains=q, active=True)
-#             liked = Product.objects.filter(favorite=request.user, active=True)
-#             paginator = Paginator(products, 3)
-#             products = paginator.get_page(page_number)
-#
-#             context = {
-#                 'products': products,
-#                 'liked': liked,
-#                 'q': q,
-#             }
-#
-#             return render(request, 'products/search.html', context=context)
-#
-#     return render(request, 'products/search.html')
 
 
 @login_required
@@ -135,17 +107,21 @@ class CategoryView(generic.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.filter(Q(category__slug_en=self.kwargs['slug']) | Q(category__slug_fa=self.kwargs['slug']), active=True).distinct('id')
+        queryset = Product.active_objs.filter(
+            Q(category__slug_en=self.kwargs['slug']) | Q(category__slug_fa=self.kwargs['slug'])).distinct()
 
         sort_num = self.request.GET.get('sort')
         if sort_num:
-            return utils.products_queryset(sort_num, queryset)
+            sort_by = utils.queryset_sort_by(sort_num)
+            queryset = queryset.order_by(sort_by)
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.objects.filter(favorite=self.request.user.pk, category__slug=self.kwargs['slug'], active=True)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk,
+                                                          category__slug=self.kwargs['slug'], )
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
@@ -197,6 +173,3 @@ class ProductDetailView(generic.edit.FormMixin, generic.DetailView):
         else:
             messages.error(request, _('Your comment have problem please try again!'))
             return super().form_invalid(form)
-            # return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
-    # def form_invalid(self, form):
-    #     return self.render_to_response(self.get_context_data(form=form, errors=form.errors))
