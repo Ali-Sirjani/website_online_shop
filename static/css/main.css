@@ -7152,7 +7152,7 @@ textarea,
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #9a9a9a;
+  color: #c2bfbf;
 }
 
 .star-rating:before {
@@ -7164,7 +7164,7 @@ textarea,
 }
 
 .star-rating span {
-  color: #666666;
+  color: #ff3b3b;
   overflow: hidden;
   float: left;
   top: 0;
@@ -7181,11 +7181,11 @@ textarea,
   left: 0;
 }
 
-.star-rating.star-five span {
+.star-rating.star-5 span {
   width: 100%;
 }
 
-.star-rating.star-four span {
+.star-rating.star-4 span {
   width: 80%;
 }
 
@@ -7193,7 +7193,7 @@ textarea,
   width: 90%;
 }
 
-.star-rating.star-three span {
+.star-rating.star-3 span {
   width: 60%;
 }
 
@@ -7201,7 +7201,7 @@ textarea,
   width: 70%;
 }
 
-.star-rating.star-two span {
+.star-rating.star-2 span {
   width: 40%;
 }
 
@@ -7209,7 +7209,7 @@ textarea,
   width: 50%;
 }
 
-.star-rating.star-one span {
+.star-rating.star-1 span {
   width: 20%;
 }
 

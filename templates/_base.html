@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-sm-7 col-12 p-0">
                         <ul class="header-toolbar">
-                            <li class="header-toolbar__item user-info">
+                            <li class="ml--20 header-toolbar__item user-info">
                                 <a href="{% url 'accounts:profile' %}" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>
                                 </a>
@@ -125,13 +125,9 @@
                                     {% endif %}
                                 </ul>
                             </li>
-                            <li class="header-toolbar__item">
-                                <a href="wishlist.html" class="header-toolbar__btn mx-4">
-                                    <i class="flaticon flaticon-like"></i>
-                                </a>
-                            </li>
+
                             {% if request.resolver_match.url_name != 'cart_page' %}
-                                <li class="header-toolbar__item mini-cart-item">
+                                <li class="ml--20 header-toolbar__item mini-cart-item">
                                     <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
                                         <i class="flaticon flaticon-shopping-cart"></i>
                                         <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
