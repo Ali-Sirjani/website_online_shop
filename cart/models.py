@@ -14,20 +14,20 @@ class Order(models.Model):
     email = models.EmailField(max_length=254, null=True, verbose_name=_('email'))
     phone = PhoneNumberField(null=True, region='IR', verbose_name=_('phone'))
     order_note = models.TextField(null=True, blank=True, verbose_name=_('order note'))
-    completed = models.BooleanField(default=False, null=True, blank=True, verbose_name=_('completed'))
+    completed = models.BooleanField(default=False, blank=True, verbose_name=_('completed'))
     transaction = models.CharField(max_length=200, null=True, verbose_name=_('transaction'))
 
     datetime_ordered = models.DateTimeField(auto_now_add=True, verbose_name=_('datetime ordered'))
     datetime_payed = models.DateTimeField(null=True, verbose_name=_('datetime payed'))
 
     # backup
-    get_cart_total_no_discount_pass = models.PositiveIntegerField(null=True,
+    get_cart_total_no_discount_past = models.PositiveIntegerField(null=True,
                                                                   verbose_name=_('get cart total no discount'))
-    get_cart_total_discount_pass = models.PositiveIntegerField(null=True,
+    get_cart_total_discount_past = models.PositiveIntegerField(null=True,
                                                                verbose_name=_('get cart total discount'))
-    get_cart_total_profit_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total profit'))
-    get_cart_total_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
-    get_cart_items_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
+    get_cart_total_profit_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total profit'))
+    get_cart_total_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
+    get_cart_items_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
 
     def __str__(self):
         return str(self.id)
@@ -39,11 +39,11 @@ class Order(models.Model):
         return self.items.filter(product__active=False).delete()
 
     def backup_total(self):
-        self.get_cart_total_no_discount_pass = self.get_cart_total_no_discount
-        self.get_cart_total_discount_pass = self.get_cart_total_discount
-        self.get_cart_total_profit_pass = self.get_cart_total_profit
-        self.get_cart_total_pass = self.get_cart_total
-        self.get_cart_items_pass = self.get_cart_items
+        self.get_cart_total_no_discount_past = self.get_cart_total_no_discount
+        self.get_cart_total_discount_past = self.get_cart_total_discount
+        self.get_cart_total_profit_past = self.get_cart_total_profit
+        self.get_cart_total_past = self.get_cart_total
+        self.get_cart_items_past = self.get_cart_items
         self.save()
 
     @property
@@ -115,10 +115,10 @@ class OrderItem(models.Model):
     datetime_added = models.DateTimeField(auto_now_add=True, verbose_name=_('datetime added'))
 
     # backup
-    get_total_no_discount_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total no discount'))
-    get_total_discount_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total discount'))
-    get_total_profit_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total profit'))
-    get_total_pass = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
+    get_total_no_discount_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total no discount'))
+    get_total_discount_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total discount'))
+    get_total_profit_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total profit'))
+    get_total_past = models.PositiveIntegerField(null=True, verbose_name=_('get cart total'))
 
     item_title = models.CharField(max_length=300, null=True, verbose_name=_('title'))
     item_cover = models.ImageField(upload_to='product_covers/', null=True, verbose_name=_('cover'))
@@ -142,10 +142,10 @@ class OrderItem(models.Model):
         self.item_discount = self.product.discount
         self.item_discount_price = self.product.discount_price
 
-        self.get_total_no_discount_pass = self.get_total_no_discount
-        self.get_total_discount_pass = self.get_total_discount
-        self.get_total_profit_pass = self.get_total_profit
-        self.get_total_pass = self.get_total
+        self.get_total_no_discount_past = self.get_total_no_discount
+        self.get_total_discount_past = self.get_total_discount
+        self.get_total_profit_past = self.get_total_profit
+        self.get_total_past = self.get_total
         self.save()
 
     def save_price(self):

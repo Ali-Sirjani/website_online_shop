@@ -6609,26 +6609,53 @@ textarea,
   }
 }
 
-.checkout-title h2 {
+.checkout-title1 h2 {
+  font-size: 20px;
+  margin-bottom: 45px;
+}
+
+.checkout-title2 h2 {
   font-size: 20px;
   margin-bottom: 45px;
 }
 
 @media (max-width: 61.94em) {
-  .checkout-title h2 {
+  .checkout-title1 h2 {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 61.94em) {
+  .checkout-title2 h2 {
     margin-bottom: 30px;
   }
 }
 
 @media (max-width: 35.94em) {
-  .checkout-title h2 {
+  .checkout-title1 h2 {
     margin-bottom: 20px;
   }
 }
 
-.checkout-title h2:after {
+@media (max-width: 35.94em) {
+  .checkout-title2 h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.checkout-title1 h2:after {
   content: "";
-  width: 50px;
+  width: 118px;
+  display: block;
+  margin-top: 10px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-color: inherit;
+}
+
+.checkout-title2 h2:after {
+  content: "";
+  width: 95px;
   display: block;
   margin-top: 10px;
   border-bottom-width: 2px;
@@ -7879,7 +7906,8 @@ Bootstrap Dropdown
 .widget-title,
 .widget-list li a,
 .tagcloud a,
-.checkout-title h2,
+.checkout-title1 h2,
+.checkout-title2 h2,
 .product-gallery__large-image,
 .quantity,
 .method-box,

@@ -1,7 +1,6 @@
 import copy
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-from django.shortcuts import get_object_or_404
 
 from .models import Product
 
@@ -18,6 +17,7 @@ class Cart:
             self.cart = self.session['cart'] = {}
         else:
             self.cart = cart
+            self.remove_inactive_items()
         self.save()
 
     def __iter__(self):
@@ -25,17 +25,17 @@ class Cart:
 
         cart_products = Product.objects.filter(id__in=products_pk)
 
-        # cart = self.cart.copy()
-        cart = copy.deepcopy(self.cart)
+        cart_copy = copy.deepcopy(self.cart)
 
         for product in cart_products:
-            cart[str(product.pk)]['product'] = product
-            cart[str(product.pk)]['get_total_no_discount'] = self.price_one_product_without_discount(product)
-            cart[str(product.pk)]['get_total_discount'] = self.price_one_product_with_discount(product)
-            cart[str(product.pk)]['get_total_profit'] = self.profit_price(product)
-            cart[str(product.pk)]['get_total'] = self.get_total(product)
+            product_pk_str = str(product.pk)
+            cart_copy[product_pk_str]['product'] = product
+            cart_copy[product_pk_str]['get_total_no_discount'] = self.price_one_product_without_discount(product)
+            cart_copy[product_pk_str]['get_total_discount'] = self.price_one_product_with_discount(product)
+            cart_copy[product_pk_str]['get_total_profit'] = self.profit_price(product)
+            cart_copy[product_pk_str]['get_total'] = self.get_total(product)
 
-        for item in cart.values():
+        for item in cart_copy.values():
             yield item
 
     def __len__(self):
@@ -43,6 +43,17 @@ class Cart:
 
     def act_items(self):
         return self.__iter__()
+
+    def remove_inactive_items(self):
+        products_pk = self.cart.keys()
+
+        cart_products = Product.objects.filter(id__in=products_pk)
+
+        for product in cart_products:
+            if not product.active:
+                del self.cart[str(product.pk)]
+
+        self.save()
 
     def get_cart_items(self):
         return sum([item['quantity'] for item in self.cart.values()])
@@ -71,6 +82,9 @@ class Cart:
             messages.success(self.request, _('Add product'))
 
         elif action == 'remove':
+            if quantity < 0:
+                quantity *= -1
+
             self.cart[product_pk_str]['quantity'] -= quantity
             messages.success(self.request, _('Remove product'))
 

@@ -13,10 +13,10 @@ class OrderItemTabular(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     fields = ('customer', 'first_name', 'last_name', 'email', 'phone', 'completed', 'transaction',
-              'get_cart_total_no_discount_pass', 'get_cart_total_discount_pass', 'get_cart_total_profit_pass',
-              'get_cart_total_pass')
-    readonly_fields = ('get_cart_total_no_discount_pass', 'get_cart_total_discount_pass', 'get_cart_total_profit_pass',
-                       'get_cart_total_pass', 'transaction')
+              'get_cart_total_no_discount_past', 'get_cart_total_discount_past', 'get_cart_total_profit_past',
+              'get_cart_total_past')
+    readonly_fields = ('get_cart_total_no_discount_past', 'get_cart_total_discount_past', 'get_cart_total_profit_past',
+                       'get_cart_total_past', 'transaction')
     inlines = (OrderItemTabular, )
     search_fields = ('transaction', )
 
@@ -25,9 +25,9 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     pass
 
-    # readonly_fields = ('get_cart_total_no_discount_pass', 'get_cart_total_discount_pass',
-    # 'get_cart_total_profit_pass',
-    #                    'get_cart_total_pass', 'transaction')
+    # readonly_fields = ('get_cart_total_no_discount_past', 'get_cart_total_discount_past',
+    # 'get_cart_total_profit_past',
+    #                    'get_cart_total_past', 'transaction')
     #
     # def get_fields(self, request, obj=None):
     #     fields = super().get_fields(request, obj)
