@@ -79,7 +79,8 @@ class SearchView(generic.ListView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.GET.get('q'):
+        q = request.GET.get('q')
+        if not q or q.isspace():
             return render(self.request, 'products/search_q_none.html')
         return super().dispatch(request, *args, **kwargs)
 
@@ -155,7 +156,7 @@ class ProductDetailView(generic.edit.FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = ProductComment.objects.filter(confirmation=True)
+        context['comments'] = ProductComment.objects.filter(confirmation=True, product=self.object.pk)
         return context
 
     def post(self, *args, **kwargs):
