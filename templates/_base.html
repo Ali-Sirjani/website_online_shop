@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-sm-7 col-12 p-0">
                         <ul class="header-toolbar">
-                        <li class="header-toolbar__item user-info">
+                            <li class="header-toolbar__item user-info">
                                 <a href="{% url 'accounts:profile' %}" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>
                                 </a>
@@ -145,7 +145,7 @@
                                     </a>
                                 </li>
                             {% endif %}
-                             <li class="header-toolbar__item">
+                            <li class="header-toolbar__item">
                                 <a href="#searchForm" class="header-toolbar__btn toolbar-btn">
                                     <i class="flaticon flaticon-search"></i>
                                 </a>
@@ -187,16 +187,16 @@
                                 <img src="{% static 'img/codingyar_logo.png' %}" alt="Logo">
                             </div>
                         </div>
-                        <div class="footer-widget mb--50 pb--1">
+                        <div class="footer-widget mb--40 pb--1">
                             <ul class="">
                                 <li><a href="">{% trans 'About us' %}</a></li>
                                 <li><a href="">{% trans 'Terms and Conditions' %}</a></li>
                                 <li><a href="{% url 'general:contact_us' %}">{% trans 'Contact us' %}</a></li>
                             </ul>
                         </div>
-                        <form action="{% url 'set_language' %}" method="post">
+                        <form class="mb--30" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
-                            <select name="language" id="">
+                            <select class="select form-select" name="language" id="" style="padding: 6px 8px;">
                                 {% get_current_language as LANGUAGE_CODE %}
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as languages %}
@@ -208,7 +208,7 @@
                                     </li>
                                 {% endfor %}
                             </select>
-                            <input type="submit" value="Go">
+                            <input type="submit" class="btn-submit" style="padding: 12px 12px;" value="Go">
                         </form>
                         <div class="footer-widget">
                             Codingyar.com © | {% trans 'all rights reserved' %}
@@ -245,26 +245,27 @@
                     <div class="mini-cart__content">
                         <ul class="mini-cart__list text-right">
                             <div style="height: 240px">
-                            {% for item in cart.act_items %}
-                                <li class="mini-cart__product d-flex justify-content-between">
-                                    <div class="mini-cart__product__image">
-                                        <a href="{{ item.product.get_absolute_url }}">
-                                            <img src="{{ item.product.cover.url }}" alt="products">
-                                        </a>
-                                    </div>
-                                    <div class="mini-cart__product__content pt-2">
+                                {% for item in cart.act_items %}
+                                    <li class="mini-cart__product d-flex justify-content-between">
+                                        <div class="mini-cart__product__image">
+                                            <a href="{{ item.product.get_absolute_url }}">
+                                                <img src="{{ item.product.cover.url }}" alt="products">
+                                            </a>
+                                        </div>
+                                        <div class="mini-cart__product__content pt-2">
                                         <span class="mini-cart__product__title d-flex flex-row justify-content-between">
                                             <a href="{{ item.product.get_absolute_url }}"> {{ item.product.title }} </a>
-                                            <a href="" class="update-cart" data-product="{{ item.product.pk }}" data-action="delete_item">
+                                            <a href="" class="update-cart" data-product="{{ item.product.pk }}"
+                                               data-action="delete_item">
                                                 &#10060;
                                             </a>
                                         </span>
-                                        <span class="mini-cart__product__quantity">
+                                            <span class="mini-cart__product__quantity">
                                             <span>{% trans '$' %} {{ item.get_total|num_fa }}</span> &#215; <span>{{ item.quantity|num_fa }}</span>
                                         </span>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
                             </div>
                         </ul>
                         <div class="mini-cart__total">
