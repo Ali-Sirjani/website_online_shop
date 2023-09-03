@@ -31,7 +31,7 @@
                         <div class="user-dashboard-tab flex-column flex-md-row">
                                     {% if orders_completed|length == 0 %}
                                         <p>
-                                            <i class=""></i>{% trans 'No order has been registered yet!' %}
+                                            <i class=""></i>{% trans 'No order has been registered yet!' %} &nbsp;&nbsp;&nbsp;&nbsp;
                                         </p>
                                         <a href="{% url 'products:products_list' %}">{% trans 'Go to the store' %}</a>
                                     {% else %}

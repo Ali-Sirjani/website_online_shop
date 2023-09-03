@@ -6,6 +6,17 @@
 
 {% block title %}{% trans 'Products' %}{% endblock title %}
 
+{% block style %}
+    <style>
+        .astext {
+            background: none;
+            border: none;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+    </style>
+{% endblock style %}
 
 {% block content %}
 
@@ -19,19 +30,27 @@
                             <div class="container row align-items-center">
                                 <div class="col-lg-12 mb-md--50 mb-xs--10">
                                     <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
-                                        <p class="product-pages">{% trans 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% trans 'of' %} {{ page_obj.paginator.count }}</p>
-                                        <hr>
-                                        <a id="btnGroupDrop2" type="button" class="sticky-top"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="mm-text">{% trans 'sort' %}</span>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                            {% for name, num in sort_dict.items %}
-                                                <a class="dropdown-item text-right"
-                                                   href="?sort={{ num }}"><h4
-                                                        class="mm-text">{{ name }}</h4></a>
-                                            {% endfor %}
-                                        </div>
+                                        <div class="product-pages">
+                                            <p>{% trans 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% trans 'of' %} {{ page_obj.paginator.count }}</p>
+
+                                            {% if LANGUAGE_CODE == 'en' %}
+                                                <div style="text-align: left;">
+                                            {% elif LANGUAGE_CODE == 'fa' %}
+                                                <div>
+                                            {% endif %}
+                                            <a id="btnGroupDrop2" type="button" class="astext"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {% trans 'sort' %}
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                {% for name, num in sort_dict.items %}
+                                                    <a class="dropdown-item text-right"
+                                                       href="?sort={{ num }}"><h4
+                                                            class="mm-text">{{ name }}</h4></a>
+                                                {% endfor %}
+                                            </div>
+                                            </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
