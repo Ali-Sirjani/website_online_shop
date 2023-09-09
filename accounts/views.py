@@ -11,7 +11,7 @@ from allauth.account.views import PasswordChangeView, PasswordSetView
 
 from cart.models import Order
 from .forms import SetUsernameForm, ProfileForm
-from .models import Profile
+from .models import Profile, SetUsername
 from products.models import Product
 
 
@@ -29,7 +29,8 @@ def set_username_view(request):
     form = SetUsernameForm(request.POST or None)
 
     if form.is_valid():
-        if user_obj.set_username.first_time:
+        set_username, create = SetUsername.objects.get_or_create(user=user_obj)
+        if set_username.first_time:
             try:
                 with transaction.atomic():
                     user_obj.username = form.cleaned_data['username']
@@ -39,8 +40,8 @@ def set_username_view(request):
                 context = {'form': form}
                 return render(request, 'accounts/set_username.html', context)
 
-            user_obj.set_username.first_time = False
-            user_obj.set_username.save()
+            set_username.first_time = False
+            set_username.save()
             return redirect('general:home')
 
         else:
