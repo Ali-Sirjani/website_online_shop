@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, F, Case, When, IntegerField
 
 from .models import Product, TimeLike, ProductComment, Category
 from .forms import ProductCommentForm, SearchForm
@@ -22,14 +22,34 @@ class ProductsListView(generic.ListView):
         sort_num = self.request.GET.get('sort')
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
-            queryset = queryset.order_by(sort_by)
+
+            if sort_by in 'price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('effective_price')
+
+            elif sort_by == '-price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('-effective_price')
+
+            else:
+                queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
@@ -60,15 +80,34 @@ class SearchView(generic.ListView):
                 sort_num = self.request.GET.get('sort')
                 if sort_num:
                     sort_by = utils.queryset_sort_by(sort_num)
-                    queryset = queryset.order_by(sort_by)
-                    return queryset
+
+                    if sort_by in 'price':
+                        queryset = queryset.annotate(
+                            effective_price=Case(
+                                When(discount=True, then=F('discount_price')),
+                                default=F('price'),
+                                output_field=IntegerField()
+                            )
+                        ).order_by('effective_price')
+
+                    elif sort_by == '-price':
+                        queryset = queryset.annotate(
+                            effective_price=Case(
+                                When(discount=True, then=F('discount_price')),
+                                default=F('price'),
+                                output_field=IntegerField()
+                            )
+                        ).order_by('-effective_price')
+
+                    else:
+                        queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         try:
             context['q'] = self.q
         except AttributeError:
@@ -114,15 +153,34 @@ class CategoryView(generic.ListView):
         sort_num = self.request.GET.get('sort')
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
-            queryset = queryset.order_by(sort_by)
+
+            if sort_by in 'price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('effective_price')
+
+            elif sort_by == '-price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('-effective_price')
+
+            else:
+                queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk,
-                                                          category__slug=self.kwargs['slug'], )
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
