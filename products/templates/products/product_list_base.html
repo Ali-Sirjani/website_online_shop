@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load static %}
+{% load trans_fa %}
+
+{% for product in products %}
+    <div class="col-xl-3 col-md-4 col-sm-6 mb--50">
+        <div class="ShoppingYar-product">
+            <div class="product-inner">
+                <figure class="product-image">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.cover.url }}" alt="Products">
+                    </a>
+                    <div class="ShoppingYar-product-action">
+                        <div class="product-action d-flex">
+                            {% if product.pk in liked %}
+                                <a href="{% url 'products:favorite' product.pk %}"
+                                   class="action-btn">
+                                    <img src="{% static 'img/hearts.png' %}"
+                                         alt="">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'products:favorite' product.pk %}"
+                                   class="action-btn">
+                                    <i class="flaticon flaticon-like"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if product.discount %}
+                        <span class="product-badge">{% trans 'special discount' %}</span>
+                    {% endif %}
+                </figure>
+                <div class="product-info">
+                    <h3 class="product-title h6 mb--15">
+                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                    </h3>
+                    <div class="product-price-wrapper mb--30">
+                        {% if product.discount %}
+                            <span class="money text-success">{% trans '$' %} {{ product.discount_price|num_fa }}</span>
+                            <span class="money-separator">-</span>
+                            <span class="old-price text-danger">
+                                                                    <span class="money text-danger">{% trans '$' %} {{ product.price|num_fa }}</span>
+                                                                </span>
+                        {% else %}
+                            <span class="money text-success">{% trans '$' %} {{ product.price|num_fa }}</span>
+                        {% endif %}
+                    </div>
+                    <button data-product="{{ product.pk }}" data-action="add"
+                            class="btn btn-small btn-bg-sand btn-color-dark px-3 update-cart">{% trans 'Add to cart' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
