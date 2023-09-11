@@ -14,13 +14,12 @@
                         <div class="product-action d-flex">
                             {% if product.pk in liked %}
                                 <a href="{% url 'products:favorite' product.pk %}"
-                                   class="action-btn">
-                                    <img src="{% static 'img/hearts.png' %}"
-                                         alt="">
+                                        class="action-btn">
+                                    <i class="flaticon flaticon-red-like"></i>
                                 </a>
                             {% else %}
                                 <a href="{% url 'products:favorite' product.pk %}"
-                                   class="action-btn">
+                                        class="action-btn">
                                     <i class="flaticon flaticon-like"></i>
                                 </a>
                             {% endif %}
@@ -39,8 +38,8 @@
                             <span class="money text-success">{% trans '$' %} {{ product.discount_price|num_fa }}</span>
                             <span class="money-separator">-</span>
                             <span class="old-price text-danger">
-                                                                    <span class="money text-danger">{% trans '$' %} {{ product.price|num_fa }}</span>
-                                                                </span>
+                                <span class="money text-danger">{% trans '$' %} {{ product.price|num_fa }}</span>
+                            </span>
                         {% else %}
                             <span class="money text-success">{% trans '$' %} {{ product.price|num_fa }}</span>
                         {% endif %}
