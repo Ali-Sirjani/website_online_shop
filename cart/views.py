@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.views import generic
 import json
@@ -13,8 +13,13 @@ from . import utils
 
 
 def update_item(request):
-    data = json.loads(request.body)
-    quantity = data['quantity']
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        messages.warning(request, _('Oops! Something went wrong with your request. Please try again.'
+                                    ' If the issue persists, contact our support team for assistance.'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    quantity = data.get('quantity')
     try:
         quantity = int(quantity)
     except ValueError:

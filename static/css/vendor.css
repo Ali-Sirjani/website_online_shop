@@ -79,6 +79,12 @@
 
 .flaticon-shopping-cart:before { content: "\f100"; }
 .flaticon-like:before {content: "\f101";}
+.flaticon-red-like {
+    width: 24px; /* Adjust the width and height as needed */
+    height: 24px;
+    background-image: url("../img/heart.png"); /* Specify the path to your PNG icon */
+    background-size: 24px 24px; /* Adjust this property as needed */
+}
 .flaticon-user:before { content: "\f102"; }
 .flaticon-search:before { content: "\f103"; }
 .flaticon-menu:before { content: "\f104"; }

@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-from django.conf import settings
 from django.contrib.auth.models import User
 
 
@@ -12,15 +10,6 @@ class SetUsername(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-def create_set_username(sender, instance, created, **kwargs):
-    if created:
-        set_username = SetUsername(user=instance)
-        set_username.save()
-
-
-models.signals.post_save.connect(create_set_username, sender=get_user_model())
 
 
 class Profile(models.Model):
@@ -33,12 +22,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        user_profile = Profile(user=instance)
-        user_profile.save()
-
-
-models.signals.post_save.connect(create_profile, sender=get_user_model())

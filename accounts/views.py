@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.db.utils import IntegrityError
 from django.views import generic
@@ -11,7 +11,7 @@ from allauth.account.views import PasswordChangeView, PasswordSetView
 
 from cart.models import Order
 from .forms import SetUsernameForm, ProfileForm
-from .models import Profile
+from .models import Profile, SetUsername
 from products.models import Product
 
 
@@ -29,7 +29,8 @@ def set_username_view(request):
     form = SetUsernameForm(request.POST or None)
 
     if form.is_valid():
-        if user_obj.set_username.first_time:
+        set_username, create = SetUsername.objects.get_or_create(user=user_obj)
+        if set_username.first_time:
             try:
                 with transaction.atomic():
                     user_obj.username = form.cleaned_data['username']
@@ -39,8 +40,8 @@ def set_username_view(request):
                 context = {'form': form}
                 return render(request, 'accounts/set_username.html', context)
 
-            user_obj.set_username.first_time = False
-            user_obj.set_username.save()
+            set_username.first_time = False
+            set_username.save()
             return redirect('general:home')
 
         else:
@@ -65,11 +66,12 @@ class ProfileView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products_list = Product.objects.filter(favorite=self.request.user.pk, active=True, datetime_like__user=self.request.user.pk).order_by(
+        products_list = Product.objects.filter(favorite=self.request.user.pk, active=True).order_by(
             '-datetime_like__datetime_like')
         for product in products_list:
             product.time_like = product.get_time_like(self.request.user)
         context['products'] = products_list
-        context['orders_completed'] = Order.objects.filter(customer=self.request.user, completed=True).order_by('-datetime_ordered')
+        context['orders_completed'] = Order.objects.filter(customer=self.request.user, completed=True).order_by(
+            '-datetime_ordered')
 
         return context

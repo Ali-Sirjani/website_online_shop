@@ -6,24 +6,41 @@
 
 {% block title %}{% trans 'Products' %}{% endblock title %}
 
+{% block style %}
+    <style>
+        .astext {
+            background: none;
+            border: none;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+    </style>
+{% endblock style %}
 
 {% block content %}
 
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper container-fluid">
-        <div class="shop-page-wrapper shop-fullwidth">
-            <div class="container">
-                <div class="row mb--50">
-                    <div class="col-12">
-                        <div class="shop-toolbar">
-                            <div class="container row align-items-center">
-                                <div class="col-lg-12 mb-md--50 mb-xs--10">
-                                    <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
-                                        <p class="product-pages">{% trans 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% trans 'of' %} {{ page_obj.paginator.count }}</p>
-                                        <hr>
-                                        <a id="btnGroupDrop2" type="button" class="sticky-top"
+    <div class="shop-page-wrapper shop-fullwidth">
+        <div class="container">
+            <div class="row mb--50">
+                <div class="col-12">
+                    <div class="shop-toolbar">
+                        <div class="container row align-items-center">
+                            <div class="col-lg-12 mb-md--50 mb-xs--10">
+                                <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
+                                    <div class="product-pages">
+                                        <p>{% trans 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% trans 'of' %} {{ page_obj.paginator.count }}</p>
+
+                                        {% if LANGUAGE_CODE == 'en' %}
+                                            <div style="text-align: left;">
+                                        {% elif LANGUAGE_CODE == 'fa' %}
+                                            <div>
+                                        {% endif %}
+                                        <a id="btnGroupDrop2" type="button" class="astext"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="mm-text">{% trans 'sort' %}</span>
+                                            {% trans 'sort' %}
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
                                             {% for name, num in sort_dict.items %}
@@ -31,6 +48,8 @@
                                                    href="?sort={{ num }}"><h4
                                                         class="mm-text">{{ name }}</h4></a>
                                             {% endfor %}
+                                        </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -46,56 +65,7 @@
                             <div class="tab-pane fade show active" id="nav-all">
                                 <div class="row xxl-block-grid-6 grid-space-20">
                                     {% if products %}
-                                        {% for product in products %}
-                                            <div class="col-xl-3 col-md-4 col-sm-6 mb--50">
-                                                <div class="ShoppingYar-product">
-                                                    <div class="product-inner">
-                                                        <figure class="product-image">
-                                                            <a href="{{ product.get_absolute_url }}">
-                                                                <img src="{{ product.cover.url }}" alt="Products">
-                                                            </a>
-                                                            <div class="ShoppingYar-product-action">
-                                                                <div class="product-action d-flex">
-                                                                    {% if product in liked %}
-                                                                        <a href="{% url 'products:favorite' product.pk %}"
-                                                                           class="action-btn">
-                                                                            <img src="{% static 'img/hearts.png' %}"
-                                                                                 alt="">
-                                                                        </a>
-                                                                    {% else %}
-                                                                        <a href="{% url 'products:favorite' product.pk %}"
-                                                                           class="action-btn">
-                                                                            <i class="flaticon flaticon-like"></i>
-                                                                        </a>
-                                                                    {% endif %}
-                                                                </div>
-                                                            </div>
-                                                            {% if product.discount %}
-                                                                <span class="product-badge">{% trans 'special discount' %}</span>
-                                                            {% endif %}
-                                                        </figure>
-                                                        <div class="product-info">
-                                                            <h3 class="product-title h6 mb--15">
-                                                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                            </h3>
-                                                            <div class="product-price-wrapper mb--30">
-                                                                {% if product.discount %}
-                                                                    <span class="money text-success">{% trans '$' %} {{ product.discount_price|num_fa }}</span>
-                                                                    <span class="money-separator">-</span>
-                                                                    <span class="old-price text-danger">
-                                                                    <span class="money text-danger">{% trans '$' %} {{ product.price|num_fa }}</span>
-                                                                </span>
-                                                                {% else %}
-                                                                    <span class="money text-success">{% trans '$' %} {{ product.price|num_fa }}</span>
-                                                                {% endif %}
-                                                            </div>
-                                                            <a href="" data-product="{{ product.pk }}" data-action="add"
-                                                               class="btn btn-small btn-bg-sand btn-color-dark px-3 update-cart">{% trans 'Add to cart' %}</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
+                                        {% include 'products/product_list_base.html' with products=products %}
                                     {% else %}
                                         <div class="container">
                                             <div class="row justify-content-center ptb--50">

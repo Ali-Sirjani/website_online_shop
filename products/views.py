@@ -1,11 +1,14 @@
-from django.shortcuts import Http404, get_object_or_404, redirect, render
+from django.shortcuts import Http404, get_object_or_404, redirect, render, reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-from django.http import HttpResponseRedirect
-from django.db.models import Q
+from django.http import HttpResponseRedirect, JsonResponse
+from django.db.models import Q, F, Case, When, IntegerField
+
+import json
 
 from .models import Product, TimeLike, ProductComment, Category
 from .forms import ProductCommentForm, SearchForm
@@ -22,14 +25,34 @@ class ProductsListView(generic.ListView):
         sort_num = self.request.GET.get('sort')
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
-            queryset = queryset.order_by(sort_by)
+
+            if sort_by in 'price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('effective_price')
+
+            elif sort_by == '-price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('-effective_price')
+
+            else:
+                queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
@@ -60,15 +83,34 @@ class SearchView(generic.ListView):
                 sort_num = self.request.GET.get('sort')
                 if sort_num:
                     sort_by = utils.queryset_sort_by(sort_num)
-                    queryset = queryset.order_by(sort_by)
-                    return queryset
+
+                    if sort_by in 'price':
+                        queryset = queryset.annotate(
+                            effective_price=Case(
+                                When(discount=True, then=F('discount_price')),
+                                default=F('price'),
+                                output_field=IntegerField()
+                            )
+                        ).order_by('effective_price')
+
+                    elif sort_by == '-price':
+                        queryset = queryset.annotate(
+                            effective_price=Case(
+                                When(discount=True, then=F('discount_price')),
+                                default=F('price'),
+                                output_field=IntegerField()
+                            )
+                        ).order_by('-effective_price')
+
+                    else:
+                        queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk)
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         try:
             context['q'] = self.q
         except AttributeError:
@@ -79,26 +121,40 @@ class SearchView(generic.ListView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.GET.get('q'):
+        q = request.GET.get('q')
+        if not q or q.isspace():
             return render(self.request, 'products/search_q_none.html')
         return super().dispatch(request, *args, **kwargs)
 
 
-@login_required
-def favorite_view(request, pk):
-    product_obj = get_object_or_404(Product, pk=pk, active=True)
-    user = request.user
-    if product_obj.favorite.filter(pk=user.pk).exists():
-        product_obj.favorite.remove(user)
-        get_object_or_404(TimeLike, user=user, product=product_obj).delete()
-        messages.error(request, _('Unlike post.'))
-    else:
-        product_obj.favorite.add(user)
-        time_like, create = TimeLike.objects.get_or_create(user=user, product=product_obj)
-        time_like.save()
-        messages.success(request, _('Like post.'))
+@require_POST
+def favorite_view(request):
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        messages.warning(request, _('Oops! Something went wrong with your request. Please try again.'
+                                    ' If the issue persists, contact our support team for assistance.'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    if request.user.is_authenticated:
+        pk = data.get('productId')
+        product_obj = get_object_or_404(Product, pk=pk, active=True)
+        user = request.user
+        if product_obj.favorite.filter(pk=user.pk).exists():
+            product_obj.favorite.remove(user)
+            get_object_or_404(TimeLike, user=user, product=product_obj).delete()
+            messages.error(request, _('Unlike post.'))
+        else:
+            product_obj.favorite.add(user)
+            time_like, create = TimeLike.objects.get_or_create(user=user, product=product_obj)
+            time_like.save()
+            messages.success(request, _('Like post.'))
+
+        response = {'authenticated': True}
+        return JsonResponse(response, safe=False)
+    else:
+        response = {'authenticated': False, 'login': request.build_absolute_uri(reverse('account_login'))}
+        return JsonResponse(response, safe=False)
 
 
 class CategoryView(generic.ListView):
@@ -113,15 +169,34 @@ class CategoryView(generic.ListView):
         sort_num = self.request.GET.get('sort')
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
-            queryset = queryset.order_by(sort_by)
+
+            if sort_by in 'price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('effective_price')
+
+            elif sort_by == '-price':
+                queryset = queryset.annotate(
+                    effective_price=Case(
+                        When(discount=True, then=F('discount_price')),
+                        default=F('price'),
+                        output_field=IntegerField()
+                    )
+                ).order_by('-effective_price')
+
+            else:
+                queryset = queryset.order_by(sort_by)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk,
-                                                          category__slug=self.kwargs['slug'], )
+            context['liked'] = Product.active_objs.filter(favorite=self.request.user.pk).values_list('pk', flat=True)
         sort_num = self.request.GET.get('sort')
         if sort_num:
             context['sort'] = f'&sort={sort_num}'
@@ -155,7 +230,7 @@ class ProductDetailView(generic.edit.FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = ProductComment.objects.filter(confirmation=True)
+        context['comments'] = ProductComment.objects.filter(confirmation=True, product=self.object.pk)
         return context
 
     def post(self, *args, **kwargs):

@@ -25,6 +25,16 @@
     <!-- style css -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
+    <style>
+        .astext {
+            background: none;
+            border: none;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+    </style>
+
     {% block style %}{% endblock style %}
 
 </head>
@@ -81,7 +91,7 @@
                                     </li>
 
                                     <li>
-                                        <a id="btnGroupDrop1" type="button" class="mainmenu__link"
+                                        <a id="btnGroupDrop1" type="button" class="mainmenu__link astext"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="mm-text">{% trans 'Categories' %}</span>
                                         </a>
@@ -99,7 +109,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-sm-7 col-12 p-0">
                         <ul class="header-toolbar">
-                        <li class="header-toolbar__item user-info">
+                            <li class="ml--30 header-toolbar__item user-info">
                                 <a href="{% url 'accounts:profile' %}" class="header-toolbar__btn">
                                     <i class="flaticon flaticon-user"></i>
                                 </a>
@@ -125,13 +135,9 @@
                                     {% endif %}
                                 </ul>
                             </li>
-                            <li class="header-toolbar__item">
-                                <a href="wishlist.html" class="header-toolbar__btn mx-4">
-                                    <i class="flaticon flaticon-like"></i>
-                                </a>
-                            </li>
+
                             {% if request.resolver_match.url_name != 'cart_page' %}
-                                <li class="header-toolbar__item mini-cart-item">
+                                <li class="ml--30 header-toolbar__item mini-cart-item">
                                     <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
                                         <i class="flaticon flaticon-shopping-cart"></i>
                                         <sup class="mini-cart-count">{{ cart.get_cart_items }}</sup>
@@ -145,7 +151,7 @@
                                     </a>
                                 </li>
                             {% endif %}
-                             <li class="header-toolbar__item">
+                            <li class="header-toolbar__item">
                                 <a href="#searchForm" class="header-toolbar__btn toolbar-btn">
                                     <i class="flaticon flaticon-search"></i>
                                 </a>
@@ -187,16 +193,16 @@
                                 <img src="{% static 'img/codingyar_logo.png' %}" alt="Logo">
                             </div>
                         </div>
-                        <div class="footer-widget mb--50 pb--1">
+                        <div class="footer-widget mb--40 pb--1">
                             <ul class="">
                                 <li><a href="">{% trans 'About us' %}</a></li>
                                 <li><a href="">{% trans 'Terms and Conditions' %}</a></li>
                                 <li><a href="{% url 'general:contact_us' %}">{% trans 'Contact us' %}</a></li>
                             </ul>
                         </div>
-                        <form action="{% url 'set_language' %}" method="post">
+                        <form class="mb--30" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
-                            <select name="language" id="">
+                            <select class="select form-select" name="language" id="" style="padding: 6px 8px;">
                                 {% get_current_language as LANGUAGE_CODE %}
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as languages %}
@@ -208,7 +214,7 @@
                                     </li>
                                 {% endfor %}
                             </select>
-                            <input type="submit" value="Go">
+                            <input type="submit" class="btn-submit" style="padding: 12px 12px;" value="Go">
                         </form>
                         <div class="footer-widget">
                             Codingyar.com © | {% trans 'all rights reserved' %}
@@ -245,26 +251,27 @@
                     <div class="mini-cart__content">
                         <ul class="mini-cart__list text-right">
                             <div style="height: 240px">
-                            {% for item in cart.act_items %}
-                                <li class="mini-cart__product d-flex justify-content-between">
-                                    <div class="mini-cart__product__image">
-                                        <a href="{{ item.product.get_absolute_url }}">
-                                            <img src="{{ item.product.cover.url }}" alt="products">
-                                        </a>
-                                    </div>
-                                    <div class="mini-cart__product__content pt-2">
+                                {% for item in cart.act_items %}
+                                    <li class="mini-cart__product d-flex justify-content-between">
+                                        <div class="mini-cart__product__image">
+                                            <a href="{{ item.product.get_absolute_url }}">
+                                                <img src="{{ item.product.cover.url }}" alt="products">
+                                            </a>
+                                        </div>
+                                        <div class="mini-cart__product__content pt-2">
                                         <span class="mini-cart__product__title d-flex flex-row justify-content-between">
                                             <a href="{{ item.product.get_absolute_url }}"> {{ item.product.title }} </a>
-                                            <a href="" class="update-cart" data-product="{{ item.product.pk }}" data-action="delete_item">
+                                            <button class="astext update-cart" data-product="{{ item.product.pk }}"
+                                               data-action="delete_item">
                                                 &#10060;
-                                            </a>
+                                            </button>
                                         </span>
-                                        <span class="mini-cart__product__quantity">
+                                            <span class="mini-cart__product__quantity">
                                             <span>{% trans '$' %} {{ item.get_total|num_fa }}</span> &#215; <span>{{ item.quantity|num_fa }}</span>
                                         </span>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
                             </div>
                         </ul>
                         <div class="mini-cart__total">
@@ -302,6 +309,9 @@
 
 <!-- Cart JS -->
 <script src="{% static 'js/cart.js' %}"></script>
+
+<!-- Product JS -->
+<script src="{% static 'js/like_product.js' %}"></script>
 
 <!-- Var USER -->
 <script type="text/javascript">
