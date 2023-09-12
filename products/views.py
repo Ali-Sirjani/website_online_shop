@@ -1,11 +1,14 @@
-from django.shortcuts import Http404, get_object_or_404, redirect, render
+from django.shortcuts import Http404, get_object_or_404, redirect, render, reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.db.models import Q, F, Case, When, IntegerField
+
+import json
 
 from .models import Product, TimeLike, ProductComment, Category
 from .forms import ProductCommentForm, SearchForm
@@ -124,21 +127,34 @@ class SearchView(generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-@login_required
-def favorite_view(request, pk):
-    product_obj = get_object_or_404(Product, pk=pk, active=True)
-    user = request.user
-    if product_obj.favorite.filter(pk=user.pk).exists():
-        product_obj.favorite.remove(user)
-        get_object_or_404(TimeLike, user=user, product=product_obj).delete()
-        messages.error(request, _('Unlike post.'))
-    else:
-        product_obj.favorite.add(user)
-        time_like, create = TimeLike.objects.get_or_create(user=user, product=product_obj)
-        time_like.save()
-        messages.success(request, _('Like post.'))
+@require_POST
+def favorite_view(request):
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        messages.warning(request, _('Oops! Something went wrong with your request. Please try again.'
+                                    ' If the issue persists, contact our support team for assistance.'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    if request.user.is_authenticated:
+        pk = data.get('productId')
+        product_obj = get_object_or_404(Product, pk=pk, active=True)
+        user = request.user
+        if product_obj.favorite.filter(pk=user.pk).exists():
+            product_obj.favorite.remove(user)
+            get_object_or_404(TimeLike, user=user, product=product_obj).delete()
+            messages.error(request, _('Unlike post.'))
+        else:
+            product_obj.favorite.add(user)
+            time_like, create = TimeLike.objects.get_or_create(user=user, product=product_obj)
+            time_like.save()
+            messages.success(request, _('Like post.'))
+
+        response = {'authenticated': True}
+        return JsonResponse(response, safe=False)
+    else:
+        response = {'authenticated': False, 'login': request.build_absolute_uri(reverse('account_login'))}
+        return JsonResponse(response, safe=False)
 
 
 class CategoryView(generic.ListView):

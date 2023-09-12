@@ -13,15 +13,15 @@
                     <div class="ShoppingYar-product-action">
                         <div class="product-action d-flex">
                             {% if product.pk in liked %}
-                                <a href="{% url 'products:favorite' product.pk %}"
-                                        class="action-btn">
+                                <button data-product="{{ product.pk }}"
+                                        class="action-btn like-product">
                                     <i class="flaticon flaticon-red-like"></i>
-                                </a>
+                                </button>
                             {% else %}
-                                <a href="{% url 'products:favorite' product.pk %}"
-                                        class="action-btn">
+                                <button data-product="{{ product.pk }}"
+                                        class="action-btn like-product">
                                     <i class="flaticon flaticon-like"></i>
-                                </a>
+                                </button>
                             {% endif %}
                         </div>
                     </div>
