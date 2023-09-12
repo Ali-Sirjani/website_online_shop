@@ -54,8 +54,8 @@
                                             <tbody>
                                             {% for item in items %}
                                                 <tr>
-                                                    <td class="product-remove text-left"><a class="update-cart" data-action="delete_item" data-product="{{ item.product.pk }}" href=""><i
-                                                            class="flaticon flaticon-cross"></i></a></td>
+                                                    <td class="product-remove text-left"><button class="astext update-cart" style="color: red;" data-action="delete_item" data-product="{{ item.product.pk }}" href=""><i
+                                                            class="flaticon flaticon-cross"></i></button></td>
                                                     <td class="product-thumbnail text-left ">
                                                         <img class="img-thumbnail" src="{{ item.product.cover.url }}"
                                                              alt="Product Thumnail">
@@ -108,7 +108,7 @@
                         {% if items %}
                             <div class="row no-gutters border-top pt--20 mt--20">
                                 <div class="col-sm-6 text-sm-right">
-                                    <a href="{% url 'cart:update_item' %}" type="submit" class="cart-form__btn update-cart" data-product="" data-action="delete_cart">{% trans 'Empty the shopping cart' %}</a>
+                                    <button class="astext cart-form__btn update-cart" data-product="" data-action="delete_cart">{% trans 'Empty the shopping cart' %}</button>
                                 </div>
                             </div>
                             </div>

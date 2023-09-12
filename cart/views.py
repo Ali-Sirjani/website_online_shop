@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy, reverse
-from django.http import JsonResponse, Http404
+from django.urls import reverse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.views import generic
 import json
@@ -13,10 +13,13 @@ from . import utils
 
 
 def update_item(request):
-    data = json.loads(request.body)
-    product_id = data['productId']
-    action = data['action']
-    quantity = data['quantity']
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        messages.warning(request, _('Oops! Something went wrong with your request. Please try again.'
+                                    ' If the issue persists, contact our support team for assistance.'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    quantity = data.get('quantity')
     try:
         quantity = int(quantity)
     except ValueError:
@@ -24,6 +27,9 @@ def update_item(request):
 
     if quantity != 0:
         customer = request.user
+        product_id = data['productId']
+        action = data['action']
+
         if customer.is_authenticated:
             order, order_created = Order.objects.get_or_create(customer=customer, completed=False)
             if action == 'delete_cart':
@@ -108,9 +114,6 @@ def checkout_view(request):
     else:
         order = cart = Cart(request)
         items = None
-        if cart.get_cart_items() == 0:
-            messages.info(request, _('The Your cart is empty! Pleas first add some product in your cart.'))
-            return redirect('products:products_list')
 
         checkout_anonymous = utils.check_out_user_anonymous(request, cart)
         try:
@@ -136,7 +139,6 @@ class OrderReportAnonymous(generic.ListView):
         try:
             orders_pk_list = self.request.session.get('orders_pk_list')
             orders = Order.objects.filter(id__in=orders_pk_list, completed=True)
-            print('this is track_order: ', orders.last().avg_track_items)
             return orders
         except TypeError:
             orders_pk_list = []
@@ -149,75 +151,23 @@ class OrderReportAnonymous(generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class OrderDetailView(generic.ListView):
+class OrderDetailView(generic.DetailView):
     template_name = 'cart/order_detail.html'
     context_object_name = 'order_finished'
 
-    def get_queryset(self):
-        order_pk = self.kwargs['pk']
+    def get_object(self, queryset=None):
+        order_pk = self.kwargs.get('pk')
         if self.request.user.is_authenticated:
             order = get_object_or_404(Order, pk=order_pk, customer=self.request.user, completed=True)
+
         else:
-            orders_pk_list = self.request.session.get('orders_pk_list')
-            if orders_pk_list and order_pk in orders_pk_list:
-                order = get_object_or_404(Order, pk=self.kwargs['pk'], customer=None, completed=True)
-            else:
-                raise Http404('there is no order')
+            order = None
+
         return order
 
-    # def process_order(request):
-#     order = False
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.info(request, _('for see order detail please login with email you ordered.'))
+            return redirect('account_login')
 
-    # if request.user.is_authenticated:
-    #     if form_order.is_valid():
-    #         form_order = form_order.save(commit=False)
-    #         form_order.customer = customer
-    #         # for test total
-    #         order, created = Order.objects.get_or_create(customer=customer, completed=False)
-    #         order.transaction = transaction_id
-    #         total = None
-    #         try:
-    #             total = int(form_order.cleaned_data['total'])
-    #         except ValueError:
-    #             messages.error(request, _('You change the data of checkout form!'))
-    #
-    #         if total == order.get_cart_total:
-    #             # save total price
-    #             form_order.order_price = total
-    #             # save product price
-    #             for item in order.act_items():
-    #                 item.item_price = item.save_price()
-    #
-    #             form_order.save()
-
-    # else:
-    #     customer = None
-    #     if form_order.is_valid():
-    #         form_order.save(commit=False)
-    #         request.session['email'] = form_order.cleaned_data['email']
-    #         request.session.modified = True
-    #         order, created = Order.objects.get_or_create(email=form_order.cleaned_data['email'], completed=False)
-    #         cart = Cart(request)
-    #         for item in cart:
-    #             OrderItem.objects.get_or_create(
-    #                 product=item['product'].pk,
-    #                 order=order.pk,
-    #                 quantity=item['quantity'],
-    #                 item_price=item['product'].price,
-    #             )
-    #         order.transaction = transaction_id
-    #         total = None
-    #         try:
-    #             total = int(form_order.cleaned_data['total'])
-    #         except ValueError:
-    #             messages.error(request, _('You change the data of checkout form!'))
-    #
-    #         if total == order.get_cart_total:
-    #             # save total price
-    #             order.order_price = total
-    #             # save product price
-    #             for item in order.act_items():
-    #                 item.item_price = item.save_price()
-    #
-    #             form_order.save()
-
+        return super().dispatch(request, *args, **kwargs)

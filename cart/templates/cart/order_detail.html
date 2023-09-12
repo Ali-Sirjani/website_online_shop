@@ -221,7 +221,7 @@
                                             <div class="col my-auto"><h5>{% trans 'Qty' %}
                                                 : {{ item.quantity|num_fa }}</h5></div>
                                             <div class="col my-auto"><h5 class="mb-0">
-                                                {% trans '$' %}{{ item.get_total_pass|num_fa }}</h5>
+                                                {% trans '$' %}{{ item.get_total_past|num_fa }}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -265,12 +265,12 @@
                         <div class="col-auto"><h4 class="mb-1 text-dark"><b>{% trans 'Order Details' %}</b></h4></div>
                         <div class="flex-sm-col text-right col"><h5 class="mb-1"><b>{% trans 'Total' %}</b></h5></div>
                         <div class="flex-sm-col col-auto"><h5 class="mb-2">
-                            {% trans '$' %}{{ order_finished.get_cart_total_no_discount_pass|num_fa }}</h5></div>
+                            {% trans '$' %}{{ order_finished.get_cart_total_no_discount_past|num_fa }}</h5></div>
                     </div>
                     <div class="row justify-content-between">
                         <div class="flex-sm-col text-right col"><h5 class="mb-1"><b>{% trans 'Profit' %}</b></h5></div>
                         <div class="flex-sm-col col-auto"><h5 class="mb-1">
-                            {% trans '$' %}{{ order_finished.get_cart_total_profit_pass|num_fa }}</h5></div>
+                            {% trans '$' %}{{ order_finished.get_cart_total_profit_past|num_fa }}</h5></div>
                     </div>
                 </div>
             </div>
@@ -286,7 +286,7 @@
                 <div class="row justify-content-between ">
                     <div class="col-auto my-auto "><h2 class="mb-0 font-weight-bold">{% trans 'TOTAL PAID' %}</h2></div>
                     <div class="col-auto my-auto ml-auto"><h1
-                            class="display-5 ">{% trans '$' %} {{ order_finished.get_cart_total_pass|num_fa }}</h1>
+                            class="display-5 ">{% trans '$' %} {{ order_finished.get_cart_total_past|num_fa }}</h1>
                     </div>
                 </div>
             </div>

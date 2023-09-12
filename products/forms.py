@@ -15,9 +15,9 @@ class ProductFormAdmin(forms.ModelForm):
 
     def clean(self):
         clean_data = super().clean()
-        price = clean_data['price']
-        discount = clean_data['discount']
-        discount_price = clean_data['discount_price']
+        price = clean_data.get('price')
+        discount = clean_data.get('discount')
+        discount_price = clean_data.get('discount_price')
 
         if not discount:
             clean_data['discount_price'] = None

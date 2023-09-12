@@ -6609,26 +6609,53 @@ textarea,
   }
 }
 
-.checkout-title h2 {
+.checkout-title1 h2 {
+  font-size: 20px;
+  margin-bottom: 45px;
+}
+
+.checkout-title2 h2 {
   font-size: 20px;
   margin-bottom: 45px;
 }
 
 @media (max-width: 61.94em) {
-  .checkout-title h2 {
+  .checkout-title1 h2 {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 61.94em) {
+  .checkout-title2 h2 {
     margin-bottom: 30px;
   }
 }
 
 @media (max-width: 35.94em) {
-  .checkout-title h2 {
+  .checkout-title1 h2 {
     margin-bottom: 20px;
   }
 }
 
-.checkout-title h2:after {
+@media (max-width: 35.94em) {
+  .checkout-title2 h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.checkout-title1 h2:after {
   content: "";
-  width: 50px;
+  width: 118px;
+  display: block;
+  margin-top: 10px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-color: inherit;
+}
+
+.checkout-title2 h2:after {
+  content: "";
+  width: 95px;
   display: block;
   margin-top: 10px;
   border-bottom-width: 2px;
@@ -7125,7 +7152,7 @@ textarea,
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #9a9a9a;
+  color: #c2bfbf;
 }
 
 .star-rating:before {
@@ -7137,7 +7164,7 @@ textarea,
 }
 
 .star-rating span {
-  color: #666666;
+  color: #ff3b3b;
   overflow: hidden;
   float: left;
   top: 0;
@@ -7154,11 +7181,11 @@ textarea,
   left: 0;
 }
 
-.star-rating.star-five span {
+.star-rating.star-5 span {
   width: 100%;
 }
 
-.star-rating.star-four span {
+.star-rating.star-4 span {
   width: 80%;
 }
 
@@ -7166,7 +7193,7 @@ textarea,
   width: 90%;
 }
 
-.star-rating.star-three span {
+.star-rating.star-3 span {
   width: 60%;
 }
 
@@ -7174,7 +7201,7 @@ textarea,
   width: 70%;
 }
 
-.star-rating.star-two span {
+.star-rating.star-2 span {
   width: 40%;
 }
 
@@ -7182,7 +7209,7 @@ textarea,
   width: 50%;
 }
 
-.star-rating.star-one span {
+.star-rating.star-1 span {
   width: 20%;
 }
 
@@ -7879,7 +7906,8 @@ Bootstrap Dropdown
 .widget-title,
 .widget-list li a,
 .tagcloud a,
-.checkout-title h2,
+.checkout-title1 h2,
+.checkout-title2 h2,
 .product-gallery__large-image,
 .quantity,
 .method-box,

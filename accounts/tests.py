@@ -164,20 +164,20 @@ class TestProfile(TestCase):
         order1 = Order.objects.create(
             customer=self.user1,
             completed=True,
-            get_cart_total_pass=20_000_000,
-            get_cart_items_pass=12,
+            get_cart_total_past=20_000_000,
+            get_cart_items_past=12,
         )
         order2 = Order.objects.create(
             customer=self.user1,
             completed=True,
-            get_cart_total_pass=100_000,
-            get_cart_items_pass=8,
+            get_cart_total_past=100_000,
+            get_cart_items_past=8,
         )
         order3 = Order.objects.create(
             customer=self.user1,
             completed=False,
-            get_cart_total_pass=185_000,
-            get_cart_items_pass=76,
+            get_cart_total_past=185_000,
+            get_cart_items_past=76,
         )
 
         # order item for order1
@@ -217,11 +217,11 @@ class TestProfile(TestCase):
 
         # completed order
         # order1
-        self.assertContains(response, f'${num_fa(order1.get_cart_total_pass)} for {num_fa(order1.get_cart_items_pass)} item')
+        self.assertContains(response, f'${num_fa(order1.get_cart_total_past)} for {num_fa(order1.get_cart_items_past)} item')
         self.assertContains(response, 'Out for delivery')
         self.assertContains(response, order1.format_time_ordered())
         # order2
-        self.assertContains(response, f'${num_fa(order2.get_cart_total_pass)} for {num_fa(order2.get_cart_items)} item')
+        self.assertContains(response, f'${num_fa(order2.get_cart_total_past)} for {num_fa(order2.get_cart_items)} item')
         self.assertContains(response, 'Processing')
         self.assertContains(response, order2.format_time_ordered())
         # test link order detail
@@ -231,7 +231,7 @@ class TestProfile(TestCase):
 
         # not completed order
         self.assertNotContains(response,
-                               f'${num_fa(order3.get_cart_total_pass)} for {num_fa(order3.get_cart_items)} item')
+                               f'${num_fa(order3.get_cart_total_past)} for {num_fa(order3.get_cart_items)} item')
         # don't be same with time order1 and order2
         order3.datetime_ordered += datetime.timedelta(days=1)
         self.assertNotContains(response, order3.format_time_ordered())

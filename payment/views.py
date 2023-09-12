@@ -226,8 +226,10 @@ def sandbox_callback_payment(request):
     payment_authority = request.GET.get('Authority')
     payment_status = request.GET.get('Status')
 
-    if request.user.is_authenticated:
-        order, created = Order.objects.get_or_create(customer=request.user, completed=False)
+    user = request.user
+
+    if user.is_authenticated:
+        order, created = Order.objects.get_or_create(customer=user, completed=False)
     else:
         order_pk = request.session.get('order_pk')
         order, created = Order.objects.get_or_create(pk=order_pk)
@@ -255,8 +257,10 @@ def sandbox_callback_payment(request):
         payment_code = data['Status']
 
         if payment_code == 100:
-            cart_obj = Cart(request)
-            cart_obj.clear_cart()
+            if not user.is_authenticated:
+                cart_obj = Cart(request)
+                cart_obj.clear_cart()
+
             order.completed = True
             for item in order.items.all():
                 item.track_order = 20
