@@ -267,7 +267,7 @@
                                             </button>
                                         </span>
                                             <span class="mini-cart__product__quantity">
-                                            <span>{% trans '$' %} {{ item.get_total|num_fa }}</span> &#215; <span>{{ item.quantity|num_fa }}</span>
+                                            <span>{% trans '$' %} {{ item.product.price|num_fa }}</span> &#215; <span>{{ item.quantity|num_fa }}</span>
                                         </span>
                                         </div>
                                     </li>
