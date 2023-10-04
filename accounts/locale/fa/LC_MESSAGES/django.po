@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-12 19:48+0330\n"
+"POT-Creation-Date: 2023-09-19 11:26+0330\n"
 "PO-Revision-Date: 2023-06-12 19:48+0330\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,144 +19,139 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: .\models.py:27
+#: .\models.py:16
 msgid "User"
 msgstr "کاربر"
 
-#: .\models.py:28
+#: .\models.py:17
 msgid "Location"
 msgstr "مکان"
 
-#: .\models.py:29
+#: .\models.py:18
 msgid "First name"
 msgstr "نام"
 
-#: .\models.py:30
+#: .\models.py:19
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: .\templates\accounts\profile.html:9
-#: .\templates\accounts\profile_edit.html:6
+#: .\templates\accounts\profile.html:8
 msgid "Profile"
 msgstr "پروفایل"
 
-#: .\templates\accounts\profile.html:18
+#: .\templates\accounts\profile.html:17
 msgid "User profile"
 msgstr "پروفایل کاربر"
 
-#: .\templates\accounts\profile.html:36
+#: .\templates\accounts\profile.html:35
 msgid "Counter"
 msgstr "پیشخوان"
 
-#: .\templates\accounts\profile.html:38
+#: .\templates\accounts\profile.html:37
 msgid "Order history"
 msgstr "تاریخچه سفارش ها"
 
-#: .\templates\accounts\profile.html:40
+#: .\templates\accounts\profile.html:39
 msgid "Favorites"
 msgstr "مورد علاقه"
 
-#: .\templates\accounts\profile.html:42
+#: .\templates\accounts\profile.html:41
 msgid "Profile detail"
 msgstr "جزئیات پروفایل"
 
-#: .\templates\accounts\profile.html:45
+#: .\templates\accounts\profile.html:44
 msgid "Change password"
 msgstr "تغییر رمز عبور"
 
-#: .\templates\accounts\profile.html:48
+#: .\templates\accounts\profile.html:47
 msgid "Set password"
 msgstr "قراردادن رمز عبور"
 
-#: .\templates\accounts\profile.html:50
+#: .\templates\accounts\profile.html:49
 msgid "Log out"
 msgstr "خروج"
 
-#: .\templates\accounts\profile.html:58
+#: .\templates\accounts\profile.html:57
 msgid "No order has been registered yet!"
 msgstr "هنوز سفارشی ثبت نشده است!"
 
-#: .\templates\accounts\profile.html:60
+#: .\templates\accounts\profile.html:59
 msgid "Go to the store"
 msgstr "رفتن به فروشگاه"
 
-#: .\templates\accounts\profile.html:66
+#: .\templates\accounts\profile.html:65
 msgid "Order Number"
 msgstr "شماره سفارش"
 
-#: .\templates\accounts\profile.html:67
+#: .\templates\accounts\profile.html:66
 msgid "Date"
 msgstr "تاریخ"
 
-#: .\templates\accounts\profile.html:68
+#: .\templates\accounts\profile.html:67
 msgid "Status"
 msgstr "وضعیت"
 
-#: .\templates\accounts\profile.html:69
+#: .\templates\accounts\profile.html:68
 msgid "Total"
 msgstr "مبلغ"
 
-#: .\templates\accounts\profile.html:70 .\templates\accounts\profile.html:102
+#: .\templates\accounts\profile.html:69 .\templates\accounts\profile.html:100
 msgid "Operation"
 msgstr "عملیات"
 
-#: .\templates\accounts\profile.html:80
+#: .\templates\accounts\profile.html:79
 msgid "$"
 msgstr "تومان"
 
-#: .\templates\accounts\profile.html:80
+#: .\templates\accounts\profile.html:79
 msgid "for"
 msgstr "برای"
 
-#: .\templates\accounts\profile.html:81
+#: .\templates\accounts\profile.html:79
 msgid "item"
 msgstr "مورد"
 
-#: .\templates\accounts\profile.html:84 .\templates\accounts\profile.html:116
+#: .\templates\accounts\profile.html:82 .\templates\accounts\profile.html:114
 msgid "Visit"
 msgstr " بازدید"
 
-#: .\templates\accounts\profile.html:98
+#: .\templates\accounts\profile.html:96
 msgid "Number"
 msgstr "شماره"
 
-#: .\templates\accounts\profile.html:99
+#: .\templates\accounts\profile.html:97
 msgid "Product Name"
 msgstr "نام محصول"
 
-#: .\templates\accounts\profile.html:100
+#: .\templates\accounts\profile.html:98
 msgid "Product Photo"
 msgstr "عکس محصول"
 
-#: .\templates\accounts\profile.html:101
+#: .\templates\accounts\profile.html:99
 msgid "Date of interest"
 msgstr "تاریخ مورد علاقه"
 
-#: .\templates\accounts\profile.html:125
+#: .\templates\accounts\profile.html:123
 msgid "Username:"
 msgstr "نام کاربری:"
 
-#: .\templates\accounts\profile.html:127
+#: .\templates\accounts\profile.html:126
 msgid "You didn't set username. Click on"
 msgstr "شما نام کاربری را تنظیم نکردید. بر روی "
 
-#: .\templates\accounts\profile.html:128
+#: .\templates\accounts\profile.html:127
 msgid "set username"
 msgstr "نام کاربری را تنظیم کنید"
 
-#: .\templates\accounts\profile.html:129
+#: .\templates\accounts\profile.html:128
 msgid "to redirect. But pay attention You can set your username for one time!"
 msgstr ""
 " کلیک کنید برای تغییر صفحه. اما توجه کنید شما می توانید نام کاربری خود را "
 "برای یک بار تنظیم کنید!"
 
-#: .\templates\accounts\profile.html:139
+#: .\templates\accounts\profile.html:138
 msgid "Save changes"
 msgstr "ذخیره تغییرات"
-
-#: .\templates\accounts\profile_edit.html:19
-msgid "Change"
-msgstr "تغییر دادن"
 
 #: .\templates\accounts\set_username.html:6
 msgid "Set username"
@@ -170,9 +165,12 @@ msgstr "شما می توانید نام کاربری خود را یک بار ت�
 msgid "Set"
 msgstr "تنظیم"
 
-#: .\views.py:47
+#: .\views.py:48
 msgid "You changed your username"
 msgstr "شما نام کاربری خود را تغییر دادید"
+
+#~ msgid "Change"
+#~ msgstr "تغییر دادن"
 
 #~ msgid "Show"
 #~ msgstr "نمایش"
