@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-12 18:23+0330\n"
-"PO-Revision-Date: 2023-06-12 18:56+0330\n"
+"POT-Creation-Date: 2023-10-05 01:18+0330\n"
+"PO-Revision-Date: 2023-10-05 01:19+0330\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: .\forms.py:26 .\forms.py:27
+#: .\forms.py:25
 msgid "You must fill email or phone"
 msgstr "شما باید ایمیل یا تلفن را پر کنید"
 
@@ -34,6 +34,10 @@ msgstr "شماره تماس"
 #: .\models.py:9
 msgid "email"
 msgstr "ایمیل"
+
+#: .\models.py:10
+msgid "message"
+msgstr "پیام"
 
 #: .\models.py:11
 msgid "answer"
@@ -62,6 +66,33 @@ msgstr "پیام خود را به ما بگویید"
 #: .\templates\general\contact_us.html:37
 msgid "Send"
 msgstr "ارسال"
+
+#: .\templates\general\contact_us.html:45
+#| msgid "Contact us"
+msgid "Contact info"
+msgstr "تماس با ما"
+
+#: .\templates\general\contact_us.html:50
+msgid "Postal address"
+msgstr "آدرس پستی"
+
+#: .\templates\general\contact_us.html:51
+#: .\templates\general\contact_us.html:60
+msgid "Somewhere"
+msgstr "یه جایی"
+
+#: .\templates\general\contact_us.html:59
+msgid "Store Address"
+msgstr "آدرس فروشگاه"
+
+#: .\templates\general\contact_us.html:68
+msgid "Phone number"
+msgstr "شماره تلفن"
+
+#: .\templates\general\contact_us.html:72
+#| msgid "email"
+msgid "Email"
+msgstr "ایمیل"
 
 #: .\templates\general\home.html:5
 msgid "Home"
