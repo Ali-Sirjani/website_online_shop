@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-16 20:00+0330\n"
-"PO-Revision-Date: 2023-06-21 16:44+0330\n"
+"POT-Creation-Date: 2023-09-19 11:28+0330\n"
+"PO-Revision-Date: 2023-10-05 01:13+0330\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: .\cart.py:65 .\cart.py:79 .\views.py:46 .\views.py:62
+#: .\cart.py:76 .\cart.py:93 .\views.py:52 .\views.py:68
 msgid "Delete product"
 msgstr "محصول حذف شد"
 
-#: .\cart.py:71 .\views.py:51
+#: .\cart.py:82 .\views.py:57
 msgid "Add product"
 msgstr "محصول اضافه شد"
 
-#: .\cart.py:75 .\views.py:56
+#: .\cart.py:89 .\views.py:62
 msgid "Remove product"
 msgstr "محصول را کاهش یافت"
 
@@ -143,23 +143,23 @@ msgstr "تخفیف"
 msgid "discount price"
 msgstr "قیمت تخفیف"
 
-#: .\models.py:180 .\templates\cart\checkout.html:76
+#: .\models.py:180 .\templates\cart\checkout.html:89
 msgid "state"
 msgstr "استان"
 
-#: .\models.py:181 .\templates\cart\checkout.html:85
+#: .\models.py:181 .\templates\cart\checkout.html:98
 msgid "city"
 msgstr "شهر"
 
-#: .\models.py:182 .\templates\cart\checkout.html:94
+#: .\models.py:182 .\templates\cart\checkout.html:107
 msgid "address"
 msgstr "آدرس"
 
-#: .\models.py:183 .\templates\cart\checkout.html:103
+#: .\models.py:183 .\templates\cart\checkout.html:116
 msgid "plate"
 msgstr "پلاک"
 
-#: .\signals.py:31
+#: .\signals.py:33
 msgid "The product add to your cart"
 msgstr "محصول را به سبد خرید خود اضافه کنید"
 
@@ -199,7 +199,7 @@ msgstr "قیمت تخفیف خورده"
 msgid "Quantity"
 msgstr "تعداد"
 
-#: .\templates\cart\cart.html:51 .\templates\cart\order_anonymous.html:46
+#: .\templates\cart\cart.html:51 .\templates\cart\order_anonymous.html:45
 #: .\templates\cart\order_detail.html:266
 msgid "Total"
 msgstr "جمع"
@@ -207,8 +207,8 @@ msgstr "جمع"
 #: .\templates\cart\cart.html:70 .\templates\cart\cart.html:76
 #: .\templates\cart\cart.html:97 .\templates\cart\cart.html:124
 #: .\templates\cart\cart.html:132 .\templates\cart\cart.html:141
-#: .\templates\cart\checkout.html:165 .\templates\cart\checkout.html:174
-#: .\templates\cart\checkout.html:182 .\templates\cart\order_anonymous.html:57
+#: .\templates\cart\checkout.html:179 .\templates\cart\checkout.html:188
+#: .\templates\cart\checkout.html:196 .\templates\cart\order_anonymous.html:56
 #: .\templates\cart\order_detail.html:224
 #: .\templates\cart\order_detail.html:268
 #: .\templates\cart\order_detail.html:273
@@ -220,7 +220,7 @@ msgstr "تومان"
 msgid "Empty the shopping cart"
 msgstr "خالی کردن سبد خرید"
 
-#: .\templates\cart\cart.html:121 .\templates\cart\checkout.html:181
+#: .\templates\cart\cart.html:121 .\templates\cart\checkout.html:195
 msgid "total"
 msgstr "جمع"
 
@@ -236,104 +236,102 @@ msgstr "جمع کل"
 msgid "Checkout"
 msgstr "پرداخت"
 
-#: .\templates\cart\checkout.html:16
+#: .\templates\cart\checkout.html:29
 msgid "Order"
 msgstr "سفارش"
 
-#: .\templates\cart\checkout.html:33
+#: .\templates\cart\checkout.html:46
 msgid "Order details"
 msgstr "جزئیات سفارش"
 
-#: .\templates\cart\checkout.html:59
+#: .\templates\cart\checkout.html:72
 msgid "First name"
 msgstr "نام"
 
-#: .\templates\cart\checkout.html:66
+#: .\templates\cart\checkout.html:79
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: .\templates\cart\checkout.html:112
+#: .\templates\cart\checkout.html:125
 msgid "Phone number"
 msgstr "شماره تماس"
 
-#: .\templates\cart\checkout.html:121
+#: .\templates\cart\checkout.html:134
 msgid "Email"
 msgstr "ایمل"
 
-#: .\templates\cart\checkout.html:129
+#: .\templates\cart\checkout.html:143
 msgid "Your note"
 msgstr "یادداشت شما"
 
-#: .\templates\cart\checkout.html:132
+#: .\templates\cart\checkout.html:146
 msgid "If you have a note, enter it here. Otherwise, leave this field blank"
 msgstr ""
 "اگر یادداشتی دارید در اینجا وارد کنید. در غیر این صورت، این قسمت را خالی "
 "بگذارید"
 
-#: .\templates\cart\checkout.html:138
+#: .\templates\cart\checkout.html:152
 msgid "Pay"
 msgstr "پرداخت"
 
-#: .\templates\cart\checkout.html:148
+#: .\templates\cart\checkout.html:162
 msgid "Your order"
 msgstr "سفارش شما"
 
-#: .\templates\cart\checkout.html:154
+#: .\templates\cart\checkout.html:168
 msgid "Product"
 msgstr "محصول"
 
-#: .\templates\cart\checkout.html:155
+#: .\templates\cart\checkout.html:169
 msgid "Finall price"
 msgstr "قیمت نهایی"
 
-#: .\templates\cart\checkout.html:188
+#: .\templates\cart\checkout.html:202
 msgid "Payment method"
 msgstr "روش پرداخت"
 
-#: .\templates\cart\checkout.html:193
+#: .\templates\cart\checkout.html:209
 msgid "Zarin Pal online portal"
 msgstr "پورتال آنلاین زرین پال"
 
-#: .\templates\cart\order_anonymous.html:9
-#: .\templates\cart\order_anonymous.html:18
-#| msgid "Order Detail"
+#: .\templates\cart\order_anonymous.html:8
+#: .\templates\cart\order_anonymous.html:17
 msgid "Order Report"
 msgstr "گزارش سفارش"
 
-#: .\templates\cart\order_anonymous.html:35
+#: .\templates\cart\order_anonymous.html:34
 msgid "No order has been registered yet!"
 msgstr "هنوز سفارشی ثبت نشده است!"
 
-#: .\templates\cart\order_anonymous.html:37
+#: .\templates\cart\order_anonymous.html:36
 msgid "Go to the store"
 msgstr "رفتن به فروشگاه"
 
-#: .\templates\cart\order_anonymous.html:43
+#: .\templates\cart\order_anonymous.html:42
 msgid "Order Number"
 msgstr "شماره سفارش"
 
-#: .\templates\cart\order_anonymous.html:44
+#: .\templates\cart\order_anonymous.html:43
 msgid "Date"
 msgstr "تاریخ"
 
-#: .\templates\cart\order_anonymous.html:45
+#: .\templates\cart\order_anonymous.html:44
 msgid "Status"
 msgstr "وضعیت"
 
-#: .\templates\cart\order_anonymous.html:47
-#| msgid "transaction"
+#: .\templates\cart\order_anonymous.html:46
 msgid "Operation"
 msgstr "عمل"
 
-#: .\templates\cart\order_anonymous.html:57
+#: .\templates\cart\order_anonymous.html:56
 msgid "for"
 msgstr "برای"
 
-#: .\templates\cart\order_anonymous.html:57
+#: .\templates\cart\order_anonymous.html:56
 msgid "item"
 msgstr "مورد"
 
-#: .\templates\cart\order_anonymous.html:60
+#: .\templates\cart\order_anonymous.html:59
 msgid "Visit"
 msgstr "بازدید کنید"
 
@@ -379,29 +377,45 @@ msgstr "شناسه تراکنش"
 msgid "TOTAL PAID"
 msgstr "جمع پرداختی"
 
-#: .\utils.py:15
+#: .\utils.py:16
 msgid "The Your cart is empty! Please first add some product in your cart."
 msgstr ""
 "سبد خرید شما خالی است! لطفا ابتدا تعدادی محصول را به سبد خرید خود اضافه "
 "کنید."
 
-#: .\utils.py:31 .\utils.py:120 .\utils.py:141
+#: .\utils.py:35 .\utils.py:86
 msgid "You change the data of checkout form!"
 msgstr "شما داده های فرم پرداخت را تغییر می دهید!"
 
-#: .\views.py:31 .\views.py:67
-msgid "Cart deleted"
-msgstr "سبد خرید حذف شد"
+#: .\utils.py:53 .\utils.py:124
+msgid "Something went wrong! Please try again."
+msgstr "مشکلی پیش آمد! لطفا دوباره تلاش کنید."
 
-#: .\views.py:74
-msgid "Please enter a correct number!"
-msgstr "لطفا یک عدد صحیح وارد کنید!"
-
-#: .\views.py:112
+#: .\utils.py:62
 msgid "The Your cart is empty! Pleas first add some product in your cart."
 msgstr ""
 "سبد خرید شما خالی است! لطفا ابتدا مقداری محصول را به سبد خرید خود اضافه "
 "کنید."
+
+#: .\views.py:19
+msgid ""
+"Oops! Something went wrong with your request. Please try again. If the issue"
+" persists, contact our support team for assistance."
+msgstr ""
+"اوه! مشکلی در درخواست شما پیش آمد. لطفا دوباره تلاش کنید. اگر مشکل همچنان "
+"ادامه داشت، برای کمک با تیم پشتیبانی ما تماس بگیرید."
+
+#: .\views.py:37 .\views.py:73
+msgid "Cart deleted"
+msgstr "سبد خرید حذف شد"
+
+#: .\views.py:80
+msgid "Please enter a correct number!"
+msgstr "لطفا یک عدد صحیح وارد کنید!"
+
+#: .\views.py:170
+msgid "for see order detail please login with email you ordered."
+msgstr "برای مشاهده جزئیات سفارش لطفا با ایمیلی که سفارش داده اید وارد شوید."
 
 #~ msgid "Thanks for your Order"
 #~ msgstr "ممنون از خرید شما, "
