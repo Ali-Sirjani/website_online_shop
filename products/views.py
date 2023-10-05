@@ -21,28 +21,25 @@ class ProductsListView(generic.ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        queryset = Product.active_objs.prefetch_related('category', 'favorite')
+        queryset = Product.active_objs.all()
         sort_num = self.request.GET.get('sort')
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
 
-            if sort_by in 'price':
+            if 'price' in sort_by:
                 queryset = queryset.annotate(
                     effective_price=Case(
                         When(discount=True, then=F('discount_price')),
                         default=F('price'),
                         output_field=IntegerField()
                     )
-                ).order_by('effective_price')
+                )
 
-            elif sort_by == '-price':
-                queryset = queryset.annotate(
-                    effective_price=Case(
-                        When(discount=True, then=F('discount_price')),
-                        default=F('price'),
-                        output_field=IntegerField()
-                    )
-                ).order_by('-effective_price')
+                if sort_by == 'price':
+                    queryset = queryset.order_by('effective_price')
+
+                elif sort_by == '-price':
+                    queryset = queryset.order_by('-effective_price')
 
             else:
                 queryset = queryset.order_by(sort_by)
@@ -84,23 +81,20 @@ class SearchView(generic.ListView):
                 if sort_num:
                     sort_by = utils.queryset_sort_by(sort_num)
 
-                    if sort_by in 'price':
+                    if 'price' in sort_by:
                         queryset = queryset.annotate(
                             effective_price=Case(
                                 When(discount=True, then=F('discount_price')),
                                 default=F('price'),
                                 output_field=IntegerField()
                             )
-                        ).order_by('effective_price')
+                        )
 
-                    elif sort_by == '-price':
-                        queryset = queryset.annotate(
-                            effective_price=Case(
-                                When(discount=True, then=F('discount_price')),
-                                default=F('price'),
-                                output_field=IntegerField()
-                            )
-                        ).order_by('-effective_price')
+                        if sort_by == 'price':
+                            queryset = queryset.order_by('effective_price')
+
+                        elif sort_by == '-price':
+                            queryset = queryset.order_by('-effective_price')
 
                     else:
                         queryset = queryset.order_by(sort_by)
@@ -170,23 +164,20 @@ class CategoryView(generic.ListView):
         if sort_num:
             sort_by = utils.queryset_sort_by(sort_num)
 
-            if sort_by in 'price':
+            if 'price' in sort_by:
                 queryset = queryset.annotate(
                     effective_price=Case(
                         When(discount=True, then=F('discount_price')),
                         default=F('price'),
                         output_field=IntegerField()
                     )
-                ).order_by('effective_price')
+                )
 
-            elif sort_by == '-price':
-                queryset = queryset.annotate(
-                    effective_price=Case(
-                        When(discount=True, then=F('discount_price')),
-                        default=F('price'),
-                        output_field=IntegerField()
-                    )
-                ).order_by('-effective_price')
+                if sort_by == 'price':
+                    queryset = queryset.order_by('effective_price')
+
+                elif sort_by == '-price':
+                    queryset = queryset.order_by('-effective_price')
 
             else:
                 queryset = queryset.order_by(sort_by)
