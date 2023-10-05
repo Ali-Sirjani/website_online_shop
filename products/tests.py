@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.urls import reverse
 
+import json
+
 from .models import Product, Category
 from trans_persian.templatetags.trans_fa import num_fa
 
@@ -72,14 +74,18 @@ class TestProduct(TestCase):
     def add_favorite(self):
         # user 1
         self.client.login(username=self.user1.username, password='q1w2e3r4a')
-        self.client.post(reverse('products:favorite', args=[self.product1.pk]))
-        self.client.post(reverse('products:favorite', args=[self.product3.pk]))
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product1.pk}),
+                         content_type='application/json')
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product3.pk}),
+                         content_type='application/json')
         # user 2
         self.client.login(username=self.user2.username, password='q1w2e3r4a')
-        self.client.post(reverse('products:favorite', args=[self.product1.pk]))
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product1.pk}),
+                         content_type='application/json')
         # user 3
         self.client.login(username=self.user3.username, password='q1w2e3r4a')
-        self.client.post(reverse('products:favorite', args=[self.product1.pk]))
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product1.pk}),
+                         content_type='application/json')
 
     def test_categories_info(self):
         self.assertEqual(self.category1.name, 'Electronic')
@@ -125,8 +131,8 @@ class TestProduct(TestCase):
                             html=True)
         # test add cart
         self.assertContains(response,
-                            f'<a href="" data-product="{self.product3.pk}" data-action="add" class="btn btn-small'
-                            f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</a>',
+                            f'<button data-product="{self.product3.pk}" data-action="add" class="btn btn-small'
+                            f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</button>',
                             html=True)
 
         # inactive product
@@ -184,8 +190,8 @@ class TestProduct(TestCase):
                             f"{self.product2.title}</a>",
                             html=True)
         self.assertContains(response,
-                            f'<a href="" data-product="{self.product2.pk}" data-action="add" class="btn btn-small'
-                            f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</a>',
+                            f'<button data-product="{self.product2.pk}" data-action="add" class="btn btn-small'
+                            f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</button>',
                             html=True)
 
         #  product without category4
@@ -199,18 +205,20 @@ class TestProduct(TestCase):
 
         # products_list
         response = self.client.get(reverse('products:products_list'))
-        self.assertContains(response, 'static/img/hearts.png')
+        self.assertContains(response, 'flaticon flaticon-red-like')
         # category
         response = self.client.get(reverse('products:category_page', args=[self.category3.slug]))
-        self.assertContains(response, 'static/img/hearts.png')
+        self.assertContains(response, 'flaticon flaticon-red-like')
 
         # products_list
         self.client.login(username=self.user4.username, password='q1w2e3r4a')
         response = self.client.get(reverse('products:products_list'))
-        self.assertNotContains(response, 'static/img/hearts.png')
+        self.assertContains(response, 'flaticon flaticon-like')
+        self.assertNotContains(response, 'flaticon flaticon-red-like')
         # category
         response = self.client.get(reverse('products:category_page', args=[self.category3.slug]))
-        self.assertNotContains(response, 'static/img/hearts.png')
+        self.assertContains(response, 'flaticon flaticon-like')
+        self.assertNotContains(response, 'flaticon flaticon-red-like')
 
     def test_search_page_url_and_template(self):
         # q is none
@@ -240,7 +248,8 @@ class TestProduct(TestCase):
             self.assertNotContains(response, product)
 
         # text when search nothing find
-        self.assertContains(response, f'There is no product with title <strong>{q}</strong>')
+        self.assertContains(response, f'There is no product with title')
+        self.assertContains(response, f'<strong>{q}</strong>')
 
         response = self.client.get(f'/products/search/', {'q': 'GM606-RGB'})
         for product in products_list:
@@ -251,8 +260,8 @@ class TestProduct(TestCase):
                                     f"{product.title}</a>",
                                     html=True)
                 self.assertContains(response,
-                                    f'<a href="" data-product="{product.pk}" data-action="add" class="btn btn-small'
-                                    f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</a>',
+                                    f'<button data-product="{product.pk}" data-action="add" class="btn btn-small'
+                                    f' btn-bg-sand btn-color-dark px-3 update-cart">Add to cart</button>',
                                     html=True)
 
             else:
