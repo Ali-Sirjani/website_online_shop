@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party
+    'debug_toolbar',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -68,6 +69,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # debug_toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -98,6 +101,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+INTERNAL_IPS = [
+    '172.18.0.1',
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
