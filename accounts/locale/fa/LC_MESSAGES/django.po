@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 11:26+0330\n"
-"PO-Revision-Date: 2023-06-12 19:48+0330\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2023-10-07 01:39+0330\n"
+"PO-Revision-Date: 2023-10-07 01:40+0330\n"
+"Last-Translator:   <xodeya9342@klanze.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,22 @@ msgstr "نام"
 #: .\models.py:19
 msgid "Last name"
 msgstr "نام خانوادگی"
+
+#: .\models.py:20
+msgid "phone"
+msgstr "شماره تماس"
+
+#: .\models.py:21
+msgid "picture"
+msgstr "تصویر"
+
+#: .\models.py:23
+msgid "datetime created"
+msgstr "تاریخ ساخت"
+
+#: .\models.py:24
+msgid "datetime modified"
+msgstr "تاریخ تغییر"
 
 #: .\templates\accounts\profile.html:8
 msgid "Profile"

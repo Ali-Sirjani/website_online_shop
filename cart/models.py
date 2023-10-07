@@ -1,6 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 from products.models import Product
@@ -98,7 +99,8 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     class Meta:
-        ordering = ('datetime_added', )
+        ordering = ('datetime_added',)
+        unique_together = ('order', 'product')
 
     TRACK_ORDER_CHOICES = (
         (20, 'Payed'),
@@ -106,11 +108,12 @@ class OrderItem(models.Model):
         (80, 'Out for delivery'),
         (100, 'Delivered'),
     )
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('product'))
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, related_name='items', null=True, blank=True,
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name=_('product'))
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, related_name='items', null=True,
                               verbose_name=_('order'))
-    quantity = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_('quantity'))
-    track_order = models.PositiveIntegerField(default=0, blank=True, choices=TRACK_ORDER_CHOICES)
+    quantity = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(1)],
+                                           verbose_name=_('quantity'))
+    track_order = models.PositiveIntegerField(null=True, blank=True, choices=TRACK_ORDER_CHOICES)
 
     datetime_added = models.DateTimeField(auto_now_add=True, verbose_name=_('datetime added'))
 
@@ -174,9 +177,9 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True,
+    customer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True,
                                  verbose_name=_('customer'))
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True, verbose_name=_('order'))
+    order = models.OneToOneField(Order, on_delete=models.SET_NULL, related_name='address', null=True, verbose_name=_('order'))
     state = models.CharField(max_length=200, null=True, verbose_name=_('state'))
     city = models.CharField(max_length=200, null=True, verbose_name=_('city'))
     address = models.TextField(null=True, verbose_name=_('address'))
