@@ -79,19 +79,19 @@ class TestCartLoginUser(TestCase):
         self.assertEqual(self.order_item1.order, self.order1)
         self.assertEqual(self.order_item1.product, self.product1)
         self.assertEqual(self.order_item1.quantity, 1)
-        self.assertEqual(self.order_item1.track_order, 0)
+        self.assertEqual(self.order_item1.track_order, None)
         # add with quantity
         self.send_request_update_view('add', self.product1.pk, 14)
         self.order_item1.refresh_from_db()
         self.assertEqual(self.order_item1.product, self.product1)
         self.assertEqual(self.order_item1.quantity, 15)
-        self.assertEqual(self.order_item1.track_order, 0)
+        self.assertEqual(self.order_item1.track_order, None)
         # remove without quantity
         self.send_request_update_view('remove', self.product1.pk)
         self.order_item1.refresh_from_db()
         self.assertEqual(self.order_item1.product, self.product1)
         self.assertEqual(self.order_item1.quantity, 14)
-        self.assertEqual(self.order_item1.track_order, 0)
+        self.assertEqual(self.order_item1.track_order, None)
         # remove with quantity
         # negative quantity
         self.send_request_update_view('remove', self.product1.pk, -7)
@@ -100,7 +100,7 @@ class TestCartLoginUser(TestCase):
         self.order_item1.refresh_from_db()
         self.assertEqual(self.order_item1.product, self.product1)
         self.assertEqual(self.order_item1.quantity, 5)
-        self.assertEqual(self.order_item1.track_order, 0)
+        self.assertEqual(self.order_item1.track_order, None)
         # delete with remove
         self.send_request_update_view('remove', self.product1.pk, -5)
         try:

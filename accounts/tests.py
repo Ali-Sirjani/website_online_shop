@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 
 import datetime
 
+import json
+
 from products.models import Product, Category, TimeLike
 from cart.models import Order, OrderItem
 from trans_persian.templatetags.trans_fa import num_fa
@@ -121,8 +123,11 @@ class TestProfile(TestCase):
     def test_favorites_list_in_profile(self):
         self.client.login(username=self.user1.username, password='q1w2e3r4a')
         # add favorite
-        self.client.post(reverse('products:favorite', args=[self.product1.pk]))
-        self.client.post(reverse('products:favorite', args=[self.product2.pk]))
+
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product1.pk}),
+                         content_type='application/json')
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product2.pk}),
+                         content_type='application/json')
 
         response = self.client.get(reverse('accounts:profile'))
         # product1 in favorites list
@@ -132,14 +137,16 @@ class TestProfile(TestCase):
         self.assertContains(response, self.product2.title)
         self.assertContains(response, self.product2.cover)
 
-        self.client.post(reverse('products:favorite', args=[self.product1.pk]))
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product1.pk}),
+                         content_type='application/json')
         response = self.client.get(reverse('accounts:profile'))
 
         self.assertNotContains(response, self.product1.title)
         self.assertNotContains(response, self.product1.cover)
 
         self.client.login(username=self.user2.username, password='q1w2e3r4a')
-        self.client.post(reverse('products:favorite', args=[self.product2.pk]))
+        self.client.post(reverse('products:favorite'), data=json.dumps({'productId': self.product2.pk}),
+                         content_type='application/json')
 
         response = self.client.get(reverse('accounts:profile'))
         # product2 in favorites list
@@ -217,7 +224,8 @@ class TestProfile(TestCase):
 
         # completed order
         # order1
-        self.assertContains(response, f'${num_fa(order1.get_cart_total_past)} for {num_fa(order1.get_cart_items_past)} item')
+        self.assertContains(response,
+                            f'${num_fa(order1.get_cart_total_past)} for {num_fa(order1.get_cart_items_past)} item')
         self.assertContains(response, 'Out for delivery')
         self.assertContains(response, order1.format_time_ordered())
         # order2
@@ -281,5 +289,3 @@ class TestProfile(TestCase):
         self.assertEqual(self.user2.profile.last_name, 'sirjani')
         self.assertEqual(self.user2.profile.location, 'I\'m some where in this world')
         self.assertEqual(self.user2.profile.phone, '+989312844761')
-
-

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-21 16:43+0330\n"
-"PO-Revision-Date: 2023-06-21 16:44+0330\n"
+"POT-Creation-Date: 2023-10-05 02:37+0330\n"
+"PO-Revision-Date: 2023-10-05 02:38+0330\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,6 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: .\context_processors.py:7
+msgid "Cheapest"
+msgstr "ارزان ترین"
+
+#: .\context_processors.py:7
+msgid "Most Expensive"
+msgstr "گران ترین"
+
+#: .\context_processors.py:7
+msgid "Newest"
+msgstr "جدید‌‌‌‌‌‌‌‌ ترین"
+
+#: .\context_processors.py:7
+msgid "Oldest"
+msgstr "قدیمی ترین"
 
 #: .\forms.py:26
 msgid "You must fill out discounts price because you active discount"
@@ -31,19 +47,19 @@ msgstr "معادل قیمت تخفیف باید کمتر از قیمت باشد"
 msgid "name"
 msgstr "نام"
 
-#: .\models.py:11 .\models.py:37
+#: .\models.py:11 .\models.py:39
 msgid "slug change"
 msgstr "تغییر اسلاگ"
 
-#: .\models.py:11 .\models.py:38
+#: .\models.py:11 .\models.py:40
 msgid "If you want change the slug by name"
 msgstr "اگر می خواهید اسلاگ بر اساس نام تغییر دهید"
 
-#: .\models.py:12 .\models.py:39
+#: .\models.py:12 .\models.py:41
 msgid "slug"
 msgstr "اسلاگ"
 
-#: .\models.py:13 .\models.py:40
+#: .\models.py:13 .\models.py:42
 msgid "If field be empty it's automatic change by name "
 msgstr "اگر فیلد خالی باشد، آن به صورت خودکار براساس نام تغییر می کند"
 
@@ -63,87 +79,96 @@ msgstr "توضیح کوتاه"
 msgid "cover"
 msgstr "کاور"
 
-#: .\models.py:31
+#: .\models.py:30
+msgid "favorite"
+msgstr "مورد علاقه"
+
+#: .\models.py:32
+#| msgid "categories"
+msgid "category"
+msgstr "دسته بندی"
+
+#: .\models.py:33
 msgid "digital"
 msgstr "دیجیتالی"
 
-#: .\models.py:32
+#: .\models.py:34
 msgid "price"
 msgstr "قیمت"
 
-#: .\models.py:33
+#: .\models.py:35
 msgid "discount"
 msgstr "تخفیف"
 
-#: .\models.py:34
+#: .\models.py:36
 msgid "discount price"
 msgstr "قیمت تخفیف"
 
-#: .\models.py:35
+#: .\models.py:37
 msgid "discount timer"
 msgstr "تایمر تخفیف"
 
-#: .\models.py:36
+#: .\models.py:38
 msgid "active"
 msgstr "فعال"
 
-#: .\models.py:42 .\models.py:87
+#: .\models.py:44 .\models.py:91
 msgid "datetime created"
 msgstr "تاریخ ساخت"
 
-#: .\models.py:43 .\models.py:88
+#: .\models.py:45 .\models.py:92
 msgid "datetime modified"
 msgstr "تاریخ تغییر"
 
-#: .\models.py:60
+#: .\models.py:64
 msgid "user"
 msgstr "کاربر"
 
-#: .\models.py:62 .\models.py:78
+#: .\models.py:66 .\models.py:82
 msgid "product"
 msgstr "محصول"
 
-#: .\models.py:63
+#: .\models.py:67
 msgid "datetime like"
 msgstr "تاریخ لایک"
 
-#: .\models.py:71
+#: .\models.py:75
 msgid "Too Bad"
 msgstr "خیلی بد"
 
-#: .\models.py:72
+#: .\models.py:76
 msgid "Bad"
 msgstr "بد"
 
-#: .\models.py:73
+#: .\models.py:77
 msgid "Normal"
 msgstr "عادی"
 
-#: .\models.py:74
+#: .\models.py:78
 msgid "Good"
 msgstr "خوب"
 
-#: .\models.py:75
+#: .\models.py:79
 msgid "Great"
 msgstr "عالی"
 
-#: .\models.py:80
+#: .\models.py:84
 msgid "author"
 msgstr "نویسنده"
 
-#: .\models.py:81
+#: .\models.py:85
 msgid "text"
 msgstr "متن"
 
-#: .\models.py:82
+#: .\models.py:86
 msgid "star"
 msgstr "ستاره"
 
-#: .\models.py:83
+#: .\models.py:87
 msgid "edited"
 msgstr "ویرایش شده"
 
-#: .\models.py:85
+#: .\models.py:89
 msgid "confirmation"
 msgstr "تاییدیه"
 
@@ -152,51 +177,25 @@ msgstr "تاییدیه"
 msgid "Products"
 msgstr "محصولات"
 
-#: .\templates\products\category.html:22
-#: .\templates\products\products_list.html:22
-#: .\templates\products\search.html:22
+#: .\templates\products\category.html:34
+#: .\templates\products\products_list.html:34
+#: .\templates\products\search.html:35
 msgid "Showing"
 msgstr "در حال نمایش"
 
-#: .\templates\products\category.html:22
-#: .\templates\products\products_list.html:22
-#: .\templates\products\search.html:22
+#: .\templates\products\category.html:34
+#: .\templates\products\products_list.html:34
+#: .\templates\products\search.html:35
 msgid "of"
 msgstr "از"
 
-#: .\templates\products\category.html:26
-#: .\templates\products\products_list.html:26
-#: .\templates\products\search.html:26
+#: .\templates\products\category.html:43
+#: .\templates\products\products_list.html:43
+#: .\templates\products\search.html:44
 msgid "sort"
 msgstr "مرتب سازی"
 
-#: .\templates\products\category.html:74
-#: .\templates\products\products_list.html:72
-#: .\templates\products\search.html:75
-msgid "special discount"
-msgstr "تخفیف ویژه"
-
-#: .\templates\products\category.html:83 .\templates\products\category.html:86
-#: .\templates\products\category.html:89
-#: .\templates\products\product_detail.html:45
-#: .\templates\products\product_detail.html:47
-#: .\templates\products\product_detail.html:49
-#: .\templates\products\products_list.html:81
-#: .\templates\products\products_list.html:84
-#: .\templates\products\products_list.html:87
-#: .\templates\products\search.html:84 .\templates\products\search.html:87
-#: .\templates\products\search.html:90
-msgid "$"
-msgstr "تومان"
-
-#: .\templates\products\category.html:93
-#: .\templates\products\product_detail.html:63
-#: .\templates\products\products_list.html:90
-#: .\templates\products\search.html:94
-msgid "Add to cart"
-msgstr "اضافه کردن به سبد"
-
-#: .\templates\products\category.html:102
+#: .\templates\products\category.html:72
 #, python-format
 msgid ""
 "There is no product with category\n"
@@ -210,6 +209,20 @@ msgstr "محصول"
 #: .\templates\products\product_detail.html:18
 msgid "Product detail"
 msgstr "جزئیات محصول"
+
+#: .\templates\products\product_detail.html:45
+#: .\templates\products\product_detail.html:47
+#: .\templates\products\product_detail.html:49
+#: .\templates\products\product_list_base.html:38
+#: .\templates\products\product_list_base.html:41
+#: .\templates\products\product_list_base.html:44
+msgid "$"
+msgstr "تومان"
+
+#: .\templates\products\product_detail.html:63
+#: .\templates\products\product_list_base.html:48
+msgid "Add to cart"
+msgstr "اضافه کردن به سبد"
 
 #: .\templates\products\product_detail.html:67
 msgid "categories"
@@ -249,16 +262,21 @@ msgstr ""
 "\n"
 "برای نظر دادن ابتدا باید <a href=\"%(url_log)s\">وارد</a> شوید"
 
-#: .\templates\products\search.html:6
+#: .\templates\products\product_list_base.html:29
+msgid "special discount"
+msgstr "تخفیف ویژه"
+
+#: .\templates\products\search.html:7
 #: .\templates\products\search_q_none.html:6
 msgid "Search"
 msgstr "جستوجو"
 
-#: .\templates\products\search.html:103
+#: .\templates\products\search.html:74
 #, python-format
-#| msgid "There is no product with title %(q)s "
-msgid "There is no product with title <strong>%(q)s</strong> "
-msgstr "هیچ محصولی با عنوان <strong>%(q)s</strong> وجود ندارد"
+msgid ""
+"There is no product with title\n"
+"                                                <strong>%(q)s</strong> "
+msgstr "هیچ محصولی با دسته بندی <strong>%(q)s</strong> وجود ندارد"
 
 #: .\templates\products\search_q_none.html:13
 msgid ""
@@ -268,25 +286,37 @@ msgstr ""
 "برای جستجوی محصولات، نام موردنظر خود را وارد کنید یا از دسته‌بندی‌ها استفاده"
 " کنید. در صورت نیاز، به ما پیام دهید. خرید آنلاین راحت و سریع را تجربه کنید!"
 
-#: .\views.py:122
-msgid "Unlike post."
-msgstr "آن لایک پست"
+#: .\views.py:125
+msgid ""
+"Oops! Something went wrong with your request. Please try again. If the issue"
+" persists, contact our support team for assistance."
+msgstr ""
+"اوه! مشکلی در درخواست شما پیش آمد. لطفا دوباره تلاش کنید. اگر مشکل همچنان "
+"ادامه داشت، برای کمک با تیم پشتیبانی ما تماس بگیرید."
 
-#: .\views.py:127
+#: .\views.py:136
+msgid "Unlike post."
+msgstr "دیس لایک پست"
+
+#: .\views.py:141
 msgid "Like post."
 msgstr "لایک پست"
 
-#: .\views.py:168
+#: .\views.py:212
 msgid "There is no product with this address"
 msgstr "هیچ محصولی با این آدرس وجود ندارد"
 
-#: .\views.py:186
+#: .\views.py:230
 msgid "You comment after confirmation will show in comments."
 msgstr "نظر شما پس از تایید در نظرات نشان داده می شود."
 
-#: .\views.py:190
+#: .\views.py:234
 msgid "Your comment have problem please try again!"
 msgstr "نظر شما مشکل دارد لطفا دوباره امتحان کنید!"
+
+#, python-format
+#~ msgid "There is no product with title <strong>%(q)s</strong> "
+#~ msgstr "هیچ محصولی با عنوان <strong>%(q)s</strong> وجود ندارد"
 
 #~ msgid "For comment You should first"
 #~ msgstr "برای نظر دادن ابتدا باید "
